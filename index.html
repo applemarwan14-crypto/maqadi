@@ -181,7 +181,7 @@ ion-searchbar { --background: var(--fill); --placeholder-color: var(--label-2); 
 .sync[data-state="off"] ion-icon { color: var(--red); }
 @keyframes spin { to { transform: rotate(-360deg); } }
 
-.wrap { max-width: 680px; margin: 0 auto; padding: 0 0 calc(120px + env(safe-area-inset-bottom)); }
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 0 28px; }
 .greet { font-size: 15px; color: var(--label-2); padding: 2px 20px 12px; }
 
 /* ---------- Summary cards ---------- */
@@ -298,32 +298,38 @@ ion-item.row-item ion-label { margin: 11px 0 !important; }
 .skel-bar { height: 12px; border-radius: 6px; }
 @keyframes shimmer { to { background-position: -200% 0; } }
 
-/* ---------- Floating dock (Liquid Glass) ---------- */
-.dock {
-  position: absolute; z-index: 10;
-  left: 50%; transform: translateX(-50%);
-  bottom: calc(14px + env(safe-area-inset-bottom));
-  width: min(calc(100% - 32px), 440px); height: 58px;
-  display: flex; align-items: center; gap: 6px; padding: 6px;
-  border-radius: 29px;
+/* ---------- Bottom bar (ثابت مثل تطبيقات iOS) ---------- */
+.app-footer {
   background: var(--glass);
-  -webkit-backdrop-filter: blur(24px) saturate(190%);
-  backdrop-filter: blur(24px) saturate(190%);
-  box-shadow: var(--shadow-float), inset 0 0 0 .5px var(--glass-edge), inset 0 1px 0 rgba(255,255,255,.35);
-  transition: transform .5s var(--spring);
+  -webkit-backdrop-filter: blur(28px) saturate(190%);
+  backdrop-filter: blur(28px) saturate(190%);
+  box-shadow: 0 -.55px 0 var(--sep), 0 -10px 30px rgba(0, 0, 0, .07);
 }
-.dock-mode, .dock-add {
-  height: 46px; border-radius: 23px;
-  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-  font-size: 16px; font-weight: 600;
-  transition: transform .3s var(--spring), background .25s, color .25s;
+@media (prefers-color-scheme: dark) { .app-footer { box-shadow: 0 -.55px 0 var(--sep), 0 -10px 30px rgba(0, 0, 0, .5); } }
+.app-footer ion-toolbar {
+  --background: transparent; --border-width: 0; --opacity: 1;
+  --min-height: 66px; --padding-top: 8px; --padding-bottom: 8px; --padding-start: 16px; --padding-end: 16px;
 }
-.dock-mode { padding: 0 16px; color: var(--label); background: var(--fill); }
-.dock-mode ion-icon { font-size: 21px; }
-.dock-mode[aria-pressed="true"] { background: var(--tint-soft); color: var(--tint); }
-.dock-add { flex: 1; color: var(--tint-ink); background: var(--tint); }
-.dock-add ion-icon { font-size: 24px; }
-.dock-mode:active, .dock-add:active { transform: scale(.95); }
+.tabbar { display: flex; align-items: center; gap: 12px; max-width: 680px; margin: 0 auto; }
+.tab-mode {
+  flex: none; min-width: 64px; height: 50px; padding: 0 6px;
+  display: grid; justify-items: center; align-content: center; gap: 2px;
+  color: var(--label-2); font-size: 11px; font-weight: 600;
+  border-radius: 12px; transition: color .25s, background .25s, transform .3s var(--spring);
+}
+.tab-mode ion-icon { font-size: 26px; }
+.tab-mode[aria-pressed="true"] { color: var(--tint); background: var(--tint-soft); }
+.tab-mode:active { transform: scale(.92); }
+.tab-add {
+  flex: 1; height: 50px; border-radius: 14px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--tint); color: var(--tint-ink);
+  font-size: 17px; font-weight: 600;
+  box-shadow: 0 6px 18px rgba(var(--tint-rgb), .35), inset 0 1px 0 rgba(255, 255, 255, .22);
+  transition: transform .3s var(--spring), box-shadow .3s;
+}
+.tab-add ion-icon { font-size: 24px; }
+.tab-add:active { transform: scale(.97); box-shadow: 0 2px 8px rgba(var(--tint-rgb), .3); }
 
 /* ---------- Shopping mode ---------- */
 body.shop .item-meta { display: none; }
@@ -467,7 +473,6 @@ ion-toast.app-toast::part(button) { font-weight: 600; }
 @media (max-width: 350px) {
   .card-num { font-size: 24px; }
   .card-label { font-size: 13px; }
-  .dock-mode span { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
@@ -588,18 +593,23 @@ ion-toast.app-toast::part(button) { font-weight: 600; }
         </section>
       </div>
 
-      <!-- الشريط العائم (Liquid Glass) -->
-      <div slot="fixed" class="dock" id="dock">
-        <button class="dock-mode" data-action="toggle-shop" aria-pressed="false" id="dockMode">
-          <ion-icon name="cart-outline"></ion-icon>
-          <span id="dockModeText">تسوق</span>
-        </button>
-        <button class="dock-add" data-action="open-add" aria-label="غرض جديد">
-          <ion-icon name="add-circle"></ion-icon>
-          <span>غرض جديد</span>
-        </button>
-      </div>
     </ion-content>
+
+    <!-- الشريط السفلي الثابت (مثل تطبيقات iOS) -->
+    <ion-footer class="app-footer" translucent="true">
+      <ion-toolbar>
+        <div class="tabbar" id="dock">
+          <button class="tab-mode" data-action="toggle-shop" aria-pressed="false" id="dockMode">
+            <ion-icon name="cart-outline"></ion-icon>
+            <span id="dockModeText">تسوق</span>
+          </button>
+          <button class="tab-add" data-action="open-add" aria-label="غرض جديد">
+            <ion-icon name="add-circle"></ion-icon>
+            <span>غرض جديد</span>
+          </button>
+        </div>
+      </ion-toolbar>
+    </ion-footer>
   </div>
 
   <!-- نافذة الإضافة والتعديل -->
