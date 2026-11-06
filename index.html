@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- مقاضي بيتنا: ملف واحد بتصميم iOS (Ionic)، يحفظ المقاضي في مستودع GitHub خاص. ارفعه باسم index.html -->
+<!-- مقاضي بيتنا: ملف واحد بتصميم Apple (Ionic 8)، يحفظ المقاضي في مستودع GitHub خاص. ارفعه باسم index.html -->
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
@@ -7,6 +7,7 @@
   <title>مقاضي بيتنا</title>
   <meta name="description" content="قائمة مقاضي مشتركة للبيت">
   <meta name="robots" content="noindex, nofollow">
+  <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F2F2F7" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,384 +17,458 @@
   <meta name="format-detection" content="telephone=no">
   <link rel="apple-touch-icon" href="data:image/png;base64,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">
   <link rel="icon" type="image/png" href="data:image/png;base64,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">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="preconnect" href="https://api.github.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- Ionic: واجهة بشكل iOS أصلي -->
-  <script>window.Ionic = { config: { mode: 'ios', swipeBackEnabled: false } };</script>
+  <!-- Ionic 8: مكونات iOS أصلية (مفتوحة المصدر، رخصة MIT) -->
+  <script>window.Ionic = { config: { mode: 'ios', swipeBackEnabled: false, innerHTMLTemplatesEnabled: false } };</script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@8.8.19/css/ionic.bundle.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@8.8.19/css/palettes/dark.system.css">
   <script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@8.8.19/dist/ionic/ionic.esm.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
   <style>
 /* =========================================================
-   مقاضي بيتنا — تصميم فوق Ionic (iOS)
+   مقاضي بيتنا — نظام تصميم مبني على Apple HIG
+   الخط: خط النظام (SF Arabic / SF Pro) • الألوان: ألوان iOS الدلالية
    ========================================================= */
 :root {
-  --ion-font-family: "Readex Pro", -apple-system, "SF Arabic", system-ui, sans-serif;
-  --ion-color-primary: #0F6E54;
-  --ion-color-primary-rgb: 15, 110, 84;
+  --font: -apple-system, BlinkMacSystemFont, "SF Arabic", "SF Pro Text", "SF Pro Display", system-ui, "Segoe UI", "Noto Sans Arabic", Tahoma, sans-serif;
+  --ion-font-family: var(--font);
+
+  /* لون العلامة (Tint) */
+  --tint: #0A8A63;
+  --tint-rgb: 10, 138, 99;
+  --tint-ink: #ffffff;
+  --tint-soft: rgba(10, 138, 99, .12);
+
+  /* ألوان iOS الدلالية */
+  --bg: #F2F2F7;                       /* systemGroupedBackground */
+  --cell: #FFFFFF;                     /* secondarySystemGroupedBackground */
+  --cell-2: #F2F2F7;                   /* tertiarySystemGroupedBackground */
+  --label: #000000;
+  --label-2: rgba(60, 60, 67, .6);     /* secondaryLabel */
+  --label-3: rgba(60, 60, 67, .3);     /* tertiaryLabel */
+  --sep: rgba(60, 60, 67, .29);        /* separator */
+  --fill: rgba(118, 118, 128, .12);    /* tertiarySystemFill */
+  --fill-2: rgba(118, 118, 128, .2);
+  --red: #FF3B30;
+  --orange: #FF9500;
+  --gold: #F2B124;
+  --glass: rgba(255, 255, 255, .72);
+  --glass-edge: rgba(255, 255, 255, .6);
+  --shadow-float: 0 10px 34px rgba(0, 0, 0, .14), 0 2px 8px rgba(0, 0, 0, .06);
+
+  /* حركة Apple */
+  --spring: cubic-bezier(.32, .72, 0, 1);
+  --pop: cubic-bezier(.34, 1.56, .64, 1);
+
+  --ion-color-primary: #0A8A63;
+  --ion-color-primary-rgb: 10, 138, 99;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #0d614a;
-  --ion-color-primary-tint: #277d65;
-
-  --app-bg: #F2F2F7;
-  --card: #ffffff;
-  --ink: #15302A;
-  --muted: #6b7671;
-  --line: #E1E5E2;
-  --soft: #EEF1EF;
-  --green: #0F6E54;
-  --green-ink: #ffffff;
-  --green-soft: #DDEFE7;
-  --board: #0D4A3B;
-  --board-ink: #EAF5EF;
-  --saffron: #F3B33D;
+  --ion-color-primary-shade: #097957;
+  --ion-color-primary-tint: #239673;
+  --ion-color-danger: #FF3B30;
+  --ion-color-danger-rgb: 255, 59, 48;
+  --ion-color-danger-shade: #e0342a;
+  --ion-color-danger-tint: #ff4f45;
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --ion-color-primary: #35B48A;
-    --ion-color-primary-rgb: 53, 180, 138;
-    --ion-color-primary-contrast: #062219;
-    --ion-color-primary-contrast-rgb: 6, 34, 25;
-    --ion-color-primary-shade: #2f9e79;
-    --ion-color-primary-tint: #49bc96;
+    --tint: #30D18A;
+    --tint-rgb: 48, 209, 138;
+    --tint-ink: #00261A;
+    --tint-soft: rgba(48, 209, 138, .16);
+    --bg: #000000;
+    --cell: #1C1C1E;
+    --cell-2: #2C2C2E;
+    --label: #FFFFFF;
+    --label-2: rgba(235, 235, 245, .6);
+    --label-3: rgba(235, 235, 245, .3);
+    --sep: rgba(84, 84, 88, .6);
+    --fill: rgba(118, 118, 128, .24);
+    --fill-2: rgba(118, 118, 128, .36);
+    --red: #FF453A;
+    --orange: #FF9F0A;
+    --gold: #FFC93C;
+    --glass: rgba(44, 44, 46, .62);
+    --glass-edge: rgba(255, 255, 255, .12);
+    --shadow-float: 0 10px 34px rgba(0, 0, 0, .5), 0 2px 8px rgba(0, 0, 0, .3);
 
-    --app-bg: #000000;
-    --card: #1C1C1E;
-    --ink: #EEF3F0;
-    --muted: #98A29D;
-    --line: #2C2C2E;
-    --soft: #2C2C2E;
-    --green: #35B48A;
-    --green-ink: #062219;
-    --green-soft: #173A2F;
-    --board: #123D31;
-    --board-ink: #E7F4EE;
-    --saffron: #F4BB52;
+    --ion-color-primary: #30D18A;
+    --ion-color-primary-rgb: 48, 209, 138;
+    --ion-color-primary-contrast: #00261A;
+    --ion-color-primary-contrast-rgb: 0, 38, 26;
+    --ion-color-primary-shade: #2ab879;
+    --ion-color-primary-tint: #45d696;
+    --ion-color-danger: #FF453A;
+    --ion-color-danger-rgb: 255, 69, 58;
   }
 }
 
 [hidden] { display: none !important; }
 * { -webkit-tap-highlight-color: transparent; }
-button { font: inherit; color: inherit; border: 0; background: none; padding: 0; cursor: pointer; touch-action: manipulation; }
+html { -webkit-font-smoothing: antialiased; }
+button { font: inherit; color: inherit; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; touch-action: manipulation; }
 h1, h2, h3, p { margin: 0; }
-ion-content { --background: var(--app-bg); }
-ion-content#itemContent { --background: var(--app-bg); }
-ion-modal ion-header ion-toolbar { --background: var(--app-bg); }
-ion-modal ion-toolbar.add-mode-bar,
-ion-modal ion-toolbar.cat-only { --border-width: 0; --min-height: 0; --padding-top: 2px; --padding-bottom: 6px; }
+.muted { color: var(--label-2); }
+.center { text-align: center; }
 
-/* ---------- Splash & Gate ---------- */
-.splash {
-  position: fixed; inset: 0; z-index: 1000;
-  display: grid; place-items: center;
-  background: var(--app-bg);
-  transition: opacity .35s ease, visibility .35s;
-}
-.splash img { border-radius: 20px; animation: breathe 1.6s ease-in-out infinite; }
+/* سلّم الخطوط (Dynamic Type) */
+.t-large  { font-size: 34px; line-height: 41px; font-weight: 700; letter-spacing: .37px; }
+.t-title3 { font-size: 20px; line-height: 25px; font-weight: 600; }
+.t-sub    { font-size: 15px; line-height: 20px; }
+.t-foot   { font-size: 13px; line-height: 18px; }
+
+ion-content { --background: var(--bg); color: var(--label); }
+ion-toolbar { --color: var(--label); }
+ion-modal ion-content { --background: var(--bg); }
+ion-modal ion-header ion-toolbar { --background: var(--bg); --border-width: 0; }
+ion-modal ion-toolbar.slim { --min-height: 0; --padding-top: 0; --padding-bottom: 6px; }
+ion-title.title-large { font-weight: 700; }
+ion-searchbar { --background: var(--fill); --placeholder-color: var(--label-2); --icon-color: var(--label-2); --border-radius: 10px; }
+
+/* ---------- Splash ---------- */
+.splash { position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; background: var(--bg); transition: opacity .4s var(--spring), visibility .4s; }
+.splash img { border-radius: 22.5%; box-shadow: 0 8px 24px rgba(0,0,0,.12); animation: breathe 1.8s ease-in-out infinite; }
 .splash.gone { opacity: 0; visibility: hidden; }
-@keyframes breathe { 50% { transform: scale(.93); } }
+@keyframes breathe { 50% { transform: scale(.94); } }
 
-.gate {
-  position: absolute; inset: 0; overflow: auto;
-  display: grid; place-items: center;
-  padding: calc(24px + env(safe-area-inset-top)) 22px calc(24px + env(safe-area-inset-bottom));
-  background: var(--app-bg); color: var(--ink);
+/* ---------- Gate (Onboarding) ---------- */
+.gate { position: absolute; inset: 0; overflow-y: auto; background: var(--bg); color: var(--label); -webkit-overflow-scrolling: touch; }
+.gate-inner {
+  min-height: 100%; max-width: 440px; margin: 0 auto;
+  display: flex; flex-direction: column; justify-content: center; gap: 28px;
+  padding: calc(40px + env(safe-area-inset-top)) 24px calc(28px + env(safe-area-inset-bottom));
 }
-.gate-card { width: 100%; max-width: 380px; text-align: center; }
-.gate-logo { border-radius: 22px; box-shadow: 0 12px 30px rgba(13, 74, 59, .25); }
-.gate h1 { font-size: 30px; font-weight: 700; margin-top: 18px; }
-.gate-sub { color: var(--muted); margin-top: 6px; line-height: 1.6; }
-.gate-q { margin: 26px 0 12px; font-weight: 600; }
+.gate-hero { text-align: center; display: grid; justify-items: center; gap: 8px; animation: rise .6s var(--spring) both; }
+.app-icon { border-radius: 22.5%; box-shadow: 0 12px 32px rgba(10, 138, 99, .28), 0 2px 6px rgba(0,0,0,.08); margin-bottom: 8px; }
+.gate-step { display: grid; gap: 14px; animation: rise .6s .08s var(--spring) both; }
+.gate-step h2 { text-align: center; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+.features { list-style: none; margin: 0 0 6px; padding: 0; display: grid; gap: 18px; }
+.features li { display: flex; align-items: flex-start; gap: 14px; }
+.features b { font-size: 15px; font-weight: 600; display: block; }
+.features p { font-size: 14px; line-height: 19px; color: var(--label-2); margin-top: 2px; }
+.f-ico { flex: none; width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #fff; background: var(--c); font-size: 22px; }
+.field-card { background: var(--cell); border-radius: 12px; padding: 10px 16px 6px; display: grid; gap: 2px; }
+.field-card input { border: 0; outline: none; background: none; font: inherit; font-size: 17px; height: 34px; color: var(--label); text-align: left; }
+.gate-err { min-height: 18px; font-size: 13px; color: var(--red); text-align: center; }
+.btn-primary {
+  height: 50px; border-radius: 14px; background: var(--tint); color: var(--tint-ink);
+  font-size: 17px; font-weight: 600; transition: transform .2s var(--spring), opacity .2s;
+}
+.btn-primary:active { transform: scale(.97); opacity: .85; }
+.btn-primary[disabled] { opacity: .5; }
 .who-users { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .who-btn {
-  display: grid; justify-items: center; gap: 8px; padding: 18px 10px;
-  border-radius: 20px; background: var(--card); font-weight: 600;
-  transition: transform .12s;
+  display: grid; justify-items: center; gap: 10px; padding: 22px 10px 18px;
+  border-radius: 18px; background: var(--cell); font-size: 17px; font-weight: 600;
+  transition: transform .25s var(--spring);
 }
-.who-btn:active { transform: scale(.96); }
-.field { display: grid; gap: 6px; text-align: start; margin-top: 26px; }
-.field span { font-size: 14px; color: var(--muted); }
-.field input {
-  height: 50px; padding: 0 14px; font-size: 16px;
-  border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink);
-  outline: none; text-align: left;
-}
-.field input:focus { border-color: var(--green); }
-.gate-err { min-height: 22px; color: var(--ion-color-danger); font-size: 14px; margin: 6px 0; text-align: start; }
-.gate-note { margin-top: 14px; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+.who-btn:active { transform: scale(.95); }
 
-/* ---------- Header ---------- */
-ion-title.title-large { font-weight: 700; }
-.search-toolbar { --padding-top: 0; --padding-bottom: 4px; }
+/* ---------- Header & sync ---------- */
+.search-toolbar { --padding-top: 0; --padding-bottom: 2px; }
 .sync {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 12px; color: var(--muted);
-  padding: 4px 10px; margin-inline-start: 8px; border-radius: 99px; background: var(--soft);
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-inline-start: 12px; font-size: 13px; color: var(--label-2);
+  transition: color .3s;
 }
-.sync i { width: 7px; height: 7px; border-radius: 50%; background: var(--green); }
-.sync[data-state="busy"] i { background: var(--saffron); animation: pulse 1s infinite; }
-.sync[data-state="off"] i { background: var(--ion-color-danger); }
-@keyframes pulse { 50% { opacity: .3; } }
+.sync ion-icon { font-size: 17px; }
+.sync[data-state="ok"] ion-icon { color: var(--tint); }
+.sync[data-state="busy"] ion-icon { color: var(--orange); animation: spin 1.1s linear infinite; }
+.sync[data-state="off"] ion-icon { color: var(--red); }
+@keyframes spin { to { transform: rotate(-360deg); } }
 
-.wrap { max-width: 640px; margin: 0 auto; padding: 4px 0 calc(120px + env(safe-area-inset-bottom)); color: var(--ink); }
+.wrap { max-width: 680px; margin: 0 auto; padding: 0 0 calc(120px + env(safe-area-inset-bottom)); }
+.greet { font-size: 15px; color: var(--label-2); padding: 2px 20px 12px; }
 
-/* ---------- Board ---------- */
-.board {
-  position: relative; overflow: hidden;
-  display: flex; align-items: flex-end; justify-content: space-between; gap: 16px;
-  margin: 6px 16px 0; padding: 18px 20px 18px;
-  background: var(--board); color: var(--board-ink);
-  border-radius: 22px;
+/* ---------- Summary cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 16px; }
+.card {
+  display: grid; gap: 10px; padding: 11px 12px 10px; text-align: start;
+  background: var(--cell); border-radius: 13px;
+  transition: transform .3s var(--spring), background .2s;
 }
-.board::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .07;
-  background-image:
-    repeating-linear-gradient(45deg, currentColor 0 1px, transparent 1px 14px),
-    repeating-linear-gradient(-45deg, currentColor 0 1px, transparent 1px 14px);
-  -webkit-mask-image: linear-gradient(to left, #000, transparent 65%);
-  mask-image: linear-gradient(to left, #000, transparent 65%);
-}
-.board-main { flex: 1; min-width: 0; position: relative; z-index: 1; }
-.board-greet { font-size: 13px; opacity: .75; margin-bottom: 6px; }
-.board-label { font-size: 14px; opacity: .85; }
-.board-num { display: flex; align-items: baseline; gap: 8px; line-height: 1; margin: 4px 0 14px; }
-.board-num span { font-size: 58px; font-weight: 700; letter-spacing: -2px; font-variant-numeric: tabular-nums; }
-.board-num small { font-size: 18px; font-weight: 500; opacity: .85; }
-.board.done .board-num span { color: var(--saffron); }
-.basket { height: 12px; border-radius: 99px; background: rgba(255, 255, 255, .14); overflow: hidden; position: relative; }
-.basket::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 calc(10% - 2px), var(--board) calc(10% - 2px) 10%); }
-.basket-fill { height: 100%; width: 0%; background: var(--saffron); border-radius: 99px; transition: width .6s cubic-bezier(.2, .8, .2, 1); }
-.board-stats { margin: 0; display: grid; gap: 10px; position: relative; z-index: 1; text-align: end; }
-.board-stats div { display: grid; }
-.board-stats dt { font-size: 12.5px; opacity: .75; }
-.board-stats dd { margin: 0; font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.card:active { transform: scale(.96); background: var(--cell-2); }
+.card-top { display: flex; align-items: center; justify-content: space-between; }
+.card-ico { width: 30px; height: 30px; border-radius: 50%; background: var(--c); color: #fff; display: grid; place-items: center; font-size: 17px; }
+.card-num { font-size: 28px; line-height: 1; font-weight: 700; font-variant-numeric: tabular-nums; }
+.card-label { font-size: 14px; font-weight: 600; color: var(--label-2); }
+.progress { margin: 12px 20px 0; height: 4px; border-radius: 99px; background: var(--fill); overflow: hidden; }
+.progress-fill { height: 100%; width: 0; background: var(--tint); border-radius: 99px; transition: width .7s var(--spring); }
 
-/* ---------- Mode & chips ---------- */
-.mode-seg { margin: 16px 16px 0; width: auto; }
-ion-segment-button { --indicator-color: var(--card); font-weight: 600; min-height: 34px; }
-body.shop .mode-seg ion-segment-button[value="shop"] { --indicator-color: var(--green); --color-checked: var(--green-ink); }
-.chips {
-  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
-  padding: 12px 16px 2px;
-}
+/* ---------- Filter chips ---------- */
+.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 16px 16px 0; scroll-padding: 16px; }
 .chips::-webkit-scrollbar { display: none; }
 .chip {
-  flex: none; display: inline-flex; align-items: center; gap: 6px;
-  height: 34px; padding: 0 13px; border-radius: 99px;
-  background: var(--card); font-size: 14px; font-weight: 500; white-space: nowrap;
+  flex: none; height: 32px; padding: 0 13px; border-radius: 99px;
+  display: inline-flex; align-items: center; gap: 5px;
+  background: var(--cell); color: var(--label); font-size: 14px; font-weight: 500; white-space: nowrap;
+  transition: background .25s var(--spring), color .25s, transform .25s var(--spring);
 }
-.chip b { font-weight: 600; font-size: 12px; color: var(--muted); }
-.chip[aria-pressed="true"] { background: var(--ink); color: var(--app-bg); }
-.chip[aria-pressed="true"] b { color: inherit; opacity: .7; }
+.chip:active { transform: scale(.94); }
+.chip b { font-size: 12px; font-weight: 600; color: var(--label-2); font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--tint); color: var(--tint-ink); }
+.chip[aria-pressed="true"] b { color: inherit; opacity: .75; }
 
-/* ---------- Lists ---------- */
-.group-title {
+/* ---------- Sections & rows ---------- */
+.group { margin-top: 22px; }
+.sec-head, .group-title {
   display: flex; align-items: center; gap: 8px;
-  margin: 20px 22px -6px; font-size: 15px; font-weight: 600; color: var(--ink);
+  padding: 0 20px; margin-bottom: -4px;
 }
-.g-ico {
-  width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center; font-size: 15px;
-  background: color-mix(in srgb, var(--c, var(--green)) 18%, var(--card));
-}
-.g-count { color: var(--muted); font-weight: 500; font-size: 13px; }
-ion-list.glist { margin-top: 12px; margin-bottom: 0; }
-ion-list[inset] { border-radius: 14px; }
+.group-title { font-size: 20px; font-weight: 700; color: var(--label); }
+.group-title .g-ico { font-size: 18px; }
+.group-title .g-count { font-size: 15px; font-weight: 500; color: var(--label-2); margin-inline-start: auto; font-variant-numeric: tabular-nums; }
+ion-list.glist { margin: 10px 16px 0 !important; border-radius: 12px; }
 
-ion-item-sliding.row { --c: var(--green); }
 ion-item.row-item {
-  --background: var(--card);
-  --padding-start: 4px;
-  --inner-padding-end: 14px;
-  --min-height: 64px;
+  --background: var(--cell);
+  --background-activated: var(--fill-2);
+  --background-activated-opacity: 1;
+  --padding-start: 0;
+  --inner-padding-end: 16px;
+  --inner-border-width: 0 0 .55px 0;
+  --border-color: var(--sep);
+  --min-height: 52px;
   cursor: pointer;
 }
-ion-item.row-item::part(native) { transition: background .15s; }
-ion-item.row-item:active::part(native) { background: var(--soft); }
-ion-item-option { font-size: 13px; font-weight: 600; }
+ion-item.row-item::part(native) { transition: background .2s; }
+ion-item-option { font-size: 13px; font-weight: 500; --padding-start: 18px; --padding-end: 18px; }
+ion-item-option ion-icon { font-size: 22px; margin-bottom: 2px; }
 
-.check { width: 50px; align-self: stretch; display: grid; place-items: center; margin: 0; }
-.check-box {
-  width: 28px; height: 28px; border-radius: 50%;
-  border: 2px solid color-mix(in srgb, var(--ink) 25%, transparent);
+.check { align-self: stretch; width: 52px; display: grid; place-items: center; }
+.ring {
+  width: 23px; height: 23px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1.6px var(--label-3);
   display: grid; place-items: center;
-  transition: background .2s, border-color .2s, transform .2s;
+  transition: background .25s var(--spring), box-shadow .25s, transform .45s var(--pop);
 }
-.check-box svg { width: 17px; height: 17px; fill: none; stroke: var(--green-ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0; transform: scale(.4); transition: opacity .2s, transform .25s cubic-bezier(.3, 1.6, .5, 1); }
-.row.is-bought .check-box, .row.pop .check-box { background: var(--green); border-color: var(--green); }
-.row.is-bought .check-box svg, .row.pop .check-box svg { opacity: 1; transform: none; }
-.row.pop .check-box { transform: scale(1.12); }
-.row.unpop .check-box { background: transparent; border-color: color-mix(in srgb, var(--ink) 25%, transparent); }
-.row.unpop .check-box svg { opacity: 0; }
+.ring svg { width: 13px; height: 13px; fill: none; stroke: var(--tint-ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+  stroke-dasharray: 22; stroke-dashoffset: 22; transition: stroke-dashoffset .35s .05s var(--spring); }
+.row.is-bought .ring, .row.pop .ring { background: var(--tint); box-shadow: inset 0 0 0 1.6px var(--tint); }
+.row.is-bought .ring svg, .row.pop .ring svg { stroke-dashoffset: 0; }
+.row.pop .ring { transform: scale(1.18); }
+.row.pop ion-label { opacity: .5; transition: opacity .3s; }
+.row.unpop .ring { background: transparent; box-shadow: inset 0 0 0 1.6px var(--label-3); transform: scale(.9); }
+.row.unpop .ring svg { stroke-dashoffset: 22; }
 
-ion-label { margin: 10px 0 !important; }
+ion-item.row-item ion-label { margin: 11px 0 !important; }
 .item-top { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
-.item-name { font-size: 17px; font-weight: 600; color: var(--ink); line-height: 1.35; }
-.i-emo { margin-inline-end: 4px; }
-.qty {
-  font-size: 12.5px; font-weight: 600; color: var(--green);
-  background: var(--green-soft); padding: 1px 9px; border-radius: 99px;
-  font-variant-numeric: tabular-nums; white-space: nowrap;
-}
-.item-note { font-size: 14px; color: var(--muted); margin-top: 2px; }
-.item-meta { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
-.item-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .5; }
+.item-name { font-size: 17px; line-height: 22px; font-weight: 400; color: var(--label); letter-spacing: -.2px; }
+.i-emo { margin-inline-end: 6px; }
+.qty { font-size: 15px; color: var(--label-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.item-note { font-size: 15px; line-height: 20px; color: var(--label-2); margin-top: 1px; }
+.item-meta { display: flex; align-items: center; gap: 5px; font-size: 13px; color: var(--label-3); margin-top: 3px; }
+.item-meta .sep { width: 3px; height: 3px; border-radius: 50%; background: currentColor; }
 .avatar {
-  width: 20px; height: 20px; border-radius: 50%;
-  display: inline-grid; place-items: center;
-  font-size: 11px; font-weight: 700; color: #fff; background: var(--green); flex: none;
+  width: 18px; height: 18px; border-radius: 50%; flex: none;
+  display: inline-grid; place-items: center; font-size: 10px; font-weight: 700; color: #fff;
+  background: linear-gradient(160deg, #39C68B, #0A8A63);
 }
-.avatar.m1 { background: #C9852A; }
-.avatar.lg { width: 48px; height: 48px; font-size: 20px; }
+.avatar.m1 { background: linear-gradient(160deg, #FFB340, #E07D10); }
+.avatar.lg { width: 64px; height: 64px; font-size: 26px; box-shadow: 0 6px 16px rgba(0,0,0,.12); }
 
-.row.is-bought .item-name { text-decoration: line-through; text-decoration-thickness: 1.5px; color: var(--muted); }
-.row.is-bought .qty { background: var(--soft); color: var(--muted); }
-.row.is-bought .i-emo { opacity: .55; }
+.row.is-bought .item-name { color: var(--label-2); text-decoration: line-through; text-decoration-color: var(--label-3); }
+.row.is-bought .i-emo { opacity: .5; filter: saturate(.3); }
 
-/* Shopping mode */
-body.shop .item-meta, body.shop .bought-actions { display: none; }
-body.shop .check { width: 64px; }
-body.shop .check-box { width: 38px; height: 38px; border-width: 2.5px; }
-body.shop .check-box svg { width: 22px; height: 22px; }
-body.shop ion-item.row-item { --min-height: 72px; }
-body.shop .item-name { font-size: 19px; }
-body.shop .board { padding-block: 14px; }
-body.shop .board-num span { font-size: 46px; }
-
-/* Bought */
-.bought { margin-top: 26px; }
-.bought-head { display: flex; align-items: center; justify-content: space-between; padding: 0 12px 0 16px; }
-.bought-toggle { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; height: 40px; padding-inline-start: 6px; color: var(--ink); }
-.bought-toggle b { font-size: 12.5px; color: var(--muted); background: var(--card); border-radius: 99px; padding: 1px 9px; font-weight: 600; }
-.bought-toggle .chev { color: var(--muted); transition: transform .25s; }
+/* Bought section */
+.bought { margin-top: 30px; }
+.sec-toggle { display: inline-flex; align-items: center; gap: 8px; height: 36px; }
+.sec-title { font-size: 20px; font-weight: 700; }
+.sec-count { font-size: 15px; color: var(--label-2); font-variant-numeric: tabular-nums; }
+.sec-toggle .chev { font-size: 16px; color: var(--tint); transition: transform .35s var(--spring); }
 .bought.collapsed .chev { transform: rotate(90deg); }
 .bought.collapsed #boughtList { display: none; }
-.bought-actions { display: flex; }
-#boughtList { margin-top: 4px; }
+.sec-head { justify-content: space-between; padding-inline-end: 8px; }
+.sec-more { --color: var(--tint); margin: 0; }
 
-/* Empty */
-.empty { text-align: center; padding: 40px 28px 10px; color: var(--ink); }
-.empty-ico { font-size: 46px; line-height: 1; }
-.empty h3 { font-size: 19px; font-weight: 600; margin-top: 14px; }
-.empty p { color: var(--muted); margin-top: 6px; font-size: 15px; line-height: 1.6; }
+/* Empty & skeleton */
+.empty { display: grid; justify-items: center; text-align: center; padding: 52px 32px 12px; gap: 6px; animation: rise .5s var(--spring) both; }
+.empty-ico { width: 72px; height: 72px; border-radius: 50%; background: var(--fill); display: grid; place-items: center; font-size: 36px; color: var(--label-2); margin-bottom: 8px; }
+.empty h3 { font-size: 20px; font-weight: 600; color: var(--label); }
+.empty p { font-size: 15px; line-height: 20px; color: var(--label-2); max-width: 280px; }
+.skel { margin: 22px 16px 0; background: var(--cell); border-radius: 12px; overflow: hidden; }
+.skel-row { display: flex; align-items: center; gap: 14px; height: 52px; padding: 0 16px; }
+.skel-row + .skel-row { box-shadow: inset 0 .55px 0 var(--sep); }
+.skel-dot, .skel-bar { background: linear-gradient(90deg, var(--fill) 0%, var(--fill-2) 50%, var(--fill) 100%); background-size: 200% 100%; animation: shimmer 1.3s linear infinite; }
+.skel-dot { width: 22px; height: 22px; border-radius: 50%; }
+.skel-bar { height: 12px; border-radius: 6px; }
+@keyframes shimmer { to { background-position: -200% 0; } }
 
-/* FAB */
-ion-fab { margin-bottom: env(safe-area-inset-bottom); }
-.fab {
-  display: inline-flex; align-items: center; gap: 6px;
-  height: 56px; padding: 0 24px 0 22px; border-radius: 99px;
-  background: var(--green); color: var(--green-ink);
-  font-weight: 600; font-size: 16.5px;
-  box-shadow: 0 10px 28px rgba(13, 74, 59, .30);
-  transition: transform .15s ease;
+/* ---------- Floating dock (Liquid Glass) ---------- */
+.dock {
+  position: absolute; z-index: 10;
+  left: 50%; transform: translateX(-50%);
+  bottom: calc(14px + env(safe-area-inset-bottom));
+  width: min(calc(100% - 32px), 440px); height: 58px;
+  display: flex; align-items: center; gap: 6px; padding: 6px;
+  border-radius: 29px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  backdrop-filter: blur(24px) saturate(190%);
+  box-shadow: var(--shadow-float), inset 0 0 0 .5px var(--glass-edge), inset 0 1px 0 rgba(255,255,255,.35);
+  transition: transform .5s var(--spring);
 }
-.fab ion-icon { font-size: 26px; }
-.fab:active { transform: scale(.95); }
-body.shop .fab { height: 48px; padding: 0 18px; font-size: 15px; }
+.dock-mode, .dock-add {
+  height: 46px; border-radius: 23px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 16px; font-weight: 600;
+  transition: transform .3s var(--spring), background .25s, color .25s;
+}
+.dock-mode { padding: 0 16px; color: var(--label); background: var(--fill); }
+.dock-mode ion-icon { font-size: 21px; }
+.dock-mode[aria-pressed="true"] { background: var(--tint-soft); color: var(--tint); }
+.dock-add { flex: 1; color: var(--tint-ink); background: var(--tint); }
+.dock-add ion-icon { font-size: 24px; }
+.dock-mode:active, .dock-add:active { transform: scale(.95); }
 
-/* ---------- Modal: add / edit ---------- */
+/* ---------- Shopping mode ---------- */
+body.shop .item-meta { display: none; }
+body.shop ion-item.row-item { --min-height: 64px; }
+body.shop .check { width: 60px; }
+body.shop .ring { width: 30px; height: 30px; box-shadow: inset 0 0 0 2px var(--label-3); }
+body.shop .ring svg { width: 17px; height: 17px; }
+body.shop .item-name { font-size: 19px; line-height: 24px; }
+body.shop .chips, body.shop .sec-more { display: none; }
+
+/* ---------- Item modal ---------- */
 #itemModal.manual .cat-only,
 #itemModal:not(.manual) .manual-only { display: none !important; }
 #itemModal.editing .add-mode-bar { display: none; }
-#itemModal ion-searchbar { --background: var(--card); padding-bottom: 0; }
+#itemModal ion-segment { margin: 0 4px; }
+#itemModal ion-searchbar { padding-top: 4px; padding-bottom: 0; }
 .tabs-toolbar { --padding-start: 0; --padding-end: 0; }
-.cat-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px 16px 4px; }
+.cat-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 4px 16px 6px; }
 .cat-tabs::-webkit-scrollbar { display: none; }
 .cat-tab {
-  flex: none; height: 34px; padding: 0 13px; border-radius: 99px;
+  flex: none; height: 32px; padding: 0 12px; border-radius: 99px;
   display: inline-flex; align-items: center; gap: 5px;
-  font-size: 13.5px; font-weight: 500; white-space: nowrap;
-  background: var(--card); color: var(--ink);
+  background: var(--cell); color: var(--label); font-size: 14px; font-weight: 500; white-space: nowrap;
+  transition: background .25s var(--spring), color .25s;
 }
-.cat-tab[aria-pressed="true"] { background: var(--ink); color: var(--app-bg); }
-.cat-tab b { font-size: 11px; background: var(--green); color: var(--green-ink); border-radius: 99px; padding: 0 6px; }
+.cat-tab[aria-pressed="true"] { background: var(--label); color: var(--bg); }
+.cat-tab b { font-size: 11px; font-weight: 700; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; background: var(--tint); color: var(--tint-ink); display: inline-grid; place-items: center; }
 
 .catalog {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(86px, 1fr)); grid-auto-rows: auto; align-content: start;
-  gap: 8px; padding: 12px 16px 24px; color: var(--ink);
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); grid-auto-rows: auto; align-content: start;
+  gap: 10px; padding: 12px 16px calc(110px + env(safe-area-inset-bottom));
 }
-.cat-head { grid-column: 1 / -1; font-size: 13px; font-weight: 600; color: var(--muted); margin: 10px 4px 0; }
+.cat-head { grid-column: 1 / -1; font-size: 13px; font-weight: 600; color: var(--label-2); margin: 12px 4px 0; text-transform: none; }
 .tile {
-  position: relative; display: grid; justify-items: center; align-content: start; gap: 3px;
-  min-height: 94px; padding: 12px 4px 10px; border-radius: 16px;
-  background: var(--card); border: 1.5px solid transparent;
-  text-align: center; cursor: pointer; user-select: none; -webkit-user-select: none;
-  transition: transform .12s ease, background .15s, border-color .15s;
+  position: relative; display: grid; justify-items: center; align-content: start; gap: 6px;
+  min-height: 104px; padding: 14px 6px 10px; border-radius: 16px;
+  background: var(--cell); text-align: center; cursor: pointer;
+  user-select: none; -webkit-user-select: none;
+  transition: transform .35s var(--spring), box-shadow .25s, background .25s;
 }
-.tile:active { transform: scale(.95); }
-.t-emo { font-size: 28px; line-height: 1.15; }
-.t-name { font-size: 13px; font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
-.t-tag { font-size: 11px; color: var(--muted); }
-.tile.in { opacity: .5; }
-.tile.in .t-tag { color: var(--green); font-weight: 600; }
-.tile.mine::after { content: ""; position: absolute; top: 8px; inset-inline-end: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--saffron); }
-.tile.sel { background: var(--green-soft); border-color: var(--green); padding: 10px 4px 8px; }
-.tile.sel .t-emo { font-size: 23px; }
-.t-check { position: absolute; top: 6px; inset-inline-start: 6px; width: 20px; height: 20px; border-radius: 50%; background: var(--green); display: grid; place-items: center; }
-.t-check svg { width: 13px; height: 13px; fill: none; stroke: var(--green-ink); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
-.t-step { display: flex; align-items: center; gap: 2px; margin-top: 3px; }
-.t-step button { width: 28px; height: 28px; border-radius: 50%; background: var(--card); color: var(--green); display: grid; place-items: center; font-size: 17px; font-weight: 700; line-height: 1; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
-.t-step b { font-size: 12px; font-weight: 600; min-width: 36px; font-variant-numeric: tabular-nums; }
-.tile.new { border: 1.5px dashed color-mix(in srgb, var(--green) 55%, transparent); background: transparent; }
-.tile.new .t-name { color: var(--green); font-weight: 600; }
-.cat-empty { grid-column: 1 / -1; text-align: center; color: var(--muted); padding: 26px 10px 4px; font-size: 14.5px; }
+.tile:active { transform: scale(.93); }
+.t-emo { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 26px; background: var(--fill); transition: transform .4s var(--pop); }
+.t-name { font-size: 13px; line-height: 17px; font-weight: 500; color: var(--label); overflow-wrap: anywhere; }
+.t-tag { font-size: 11px; color: var(--label-2); }
+.tile.in { opacity: .45; }
+.tile.in .t-tag { color: var(--tint); font-weight: 600; }
+.tile.mine::after { content: ""; position: absolute; top: 9px; inset-inline-end: 9px; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+.tile.sel { box-shadow: inset 0 0 0 2px var(--tint); background: color-mix(in srgb, var(--tint) 8%, var(--cell)); }
+.tile.sel .t-emo { transform: scale(.88); background: var(--tint-soft); }
+.t-check { position: absolute; top: 7px; inset-inline-start: 7px; width: 20px; height: 20px; border-radius: 50%; background: var(--tint); display: grid; place-items: center; animation: pop .35s var(--pop); }
+.t-check svg { width: 12px; height: 12px; fill: none; stroke: var(--tint-ink); stroke-width: 3.2; stroke-linecap: round; stroke-linejoin: round; }
+@keyframes pop { from { transform: scale(0); } }
+.t-step { display: flex; align-items: center; gap: 2px; padding: 2px; border-radius: 99px; background: var(--fill); }
+.t-step button { width: 24px; height: 24px; flex: none; border-radius: 50%; background: var(--cell); color: var(--tint); display: grid; place-items: center; font-size: 17px; font-weight: 600; line-height: 1; box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.t-step b { font-size: 11.5px; font-weight: 600; min-width: 30px; padding: 0 2px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tile.new { background: transparent; box-shadow: inset 0 0 0 1.5px var(--fill-2); }
+.tile.new .t-emo { background: var(--tint-soft); color: var(--tint); }
+.tile.new .t-name { color: var(--tint); font-weight: 600; }
+.cat-empty { grid-column: 1 / -1; text-align: center; color: var(--label-2); padding: 30px 12px 4px; font-size: 15px; }
 
-.footer-btns { display: flex; align-items: center; gap: 8px; padding: 6px 12px; }
-.footer-btns ion-button[expand="block"] { flex: 1; margin: 0; --border-radius: 14px; height: 50px; font-weight: 600; font-size: 16px; }
-.footer-btns ion-button[fill="outline"] { --border-radius: 14px; height: 50px; margin: 0; font-weight: 600; }
-.pick-clear { margin: 0; }
-#itemModal:not(.has-pick) .pick-clear { display: none; }
-ion-footer ion-toolbar { --background: var(--app-bg); }
-
-/* Manual form */
-.form { padding: 14px 16px 30px; color: var(--ink); }
-.name-input {
-  width: 100%; height: 56px; padding: 0 16px; font: inherit; font-size: 19px; font-weight: 600;
-  border: 1.5px solid transparent; border-radius: 14px; background: var(--card); color: var(--ink); outline: none;
+.pick-dock {
+  position: absolute; z-index: 20; left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 140%);
+  display: flex; align-items: center; gap: 6px; padding: 6px;
+  border-radius: 30px;
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(24px) saturate(190%);
+  backdrop-filter: blur(24px) saturate(190%);
+  box-shadow: var(--shadow-float), inset 0 0 0 .5px var(--glass-edge);
+  transition: transform .5s var(--spring), opacity .3s;
+  opacity: 0; pointer-events: none;
 }
-.name-input:focus { border-color: var(--green); }
-.name-input.shake { animation: shake .35s; border-color: var(--ion-color-danger); }
-@keyframes shake { 25% { transform: translateX(6px); } 50% { transform: translateX(-6px); } 75% { transform: translateX(3px); } }
-.sug-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 10px -16px 0; padding: 2px 16px; }
+#itemModal.has-pick .pick-dock { transform: translate(-50%, 0); opacity: 1; pointer-events: auto; }
+.pick-clear { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; color: var(--label-2); font-size: 28px; }
+.pick-add { height: 46px; padding: 0 26px; border-radius: 23px; background: var(--tint); color: var(--tint-ink); font-size: 16px; font-weight: 600; white-space: nowrap; transition: transform .3s var(--spring); }
+.pick-add:active { transform: scale(.95); }
+
+/* Manual form (grouped inset) */
+.form { padding: 18px 16px 40px; max-width: 680px; margin: 0 auto; }
+.group-card { background: var(--cell); border-radius: 12px; overflow: hidden; }
+.group-card.pad { padding: 12px; }
+.group-label { font-size: 13px; color: var(--label-2); margin: 22px 16px 7px; }
+.name-input { width: 100%; height: 54px; padding: 0 16px; border: 0; outline: none; background: none; font: inherit; font-size: 20px; font-weight: 500; color: var(--label); }
+.name-input::placeholder, #fNote::placeholder, .field-card input::placeholder { color: var(--label-3); }
+.name-input.shake { animation: shake .4s; }
+@keyframes shake { 20% { transform: translateX(7px); } 40% { transform: translateX(-6px); } 60% { transform: translateX(4px); } 80% { transform: translateX(-2px); } }
+.sug-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 10px -16px 0; padding: 0 16px; }
 .sug-row::-webkit-scrollbar { display: none; }
 .sug-row:empty { margin: 0; }
-.sug { flex: none; height: 34px; padding: 0 12px; border-radius: 99px; font-size: 14px; background: var(--card); white-space: nowrap; }
-.mini-label { font-size: 13px; color: var(--muted); margin: 18px 4px 8px; font-weight: 500; }
-.qty-row { display: flex; align-items: center; gap: 10px; }
-.stepper { flex: none; display: flex; align-items: center; height: 46px; border-radius: 13px; background: var(--card); }
-.stepper button { width: 42px; height: 100%; display: grid; place-items: center; color: var(--green); font-size: 22px; }
-.stepper input { width: 46px; height: 100%; border: 0; background: none; text-align: center; font: inherit; font-size: 18px; font-weight: 600; color: var(--ink); outline: none; }
-.unit-row { flex: 1; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.sug { flex: none; height: 32px; padding: 0 12px; border-radius: 99px; font-size: 14px; background: var(--cell); color: var(--label); white-space: nowrap; transition: transform .25s var(--spring); }
+.sug:active { transform: scale(.94); }
+.row-line { display: flex; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 16px; font-size: 17px; }
+.row-sep { height: .55px; background: var(--sep); margin-inline-start: 16px; }
+.stepper { display: flex; align-items: center; height: 34px; border-radius: 9px; background: var(--fill); }
+.stepper button { width: 44px; height: 100%; display: grid; place-items: center; color: var(--label); font-size: 18px; }
+.stepper button:active { background: var(--fill-2); }
+.stepper button:first-child { border-radius: 9px 0 0 9px; }
+.stepper input { width: 52px; height: 100%; border: 0; outline: none; background: none; text-align: center; font: inherit; font-size: 17px; font-weight: 600; color: var(--label); font-variant-numeric: tabular-nums; box-shadow: inset .55px 0 0 var(--sep), inset -.55px 0 0 var(--sep); }
+.unit-row { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 10px 16px 12px; }
 .unit-row::-webkit-scrollbar { display: none; }
-.unit { flex: none; height: 38px; padding: 0 13px; border-radius: 11px; font-size: 14px; background: var(--card); }
-.unit[aria-checked="true"] { background: var(--green-soft); color: var(--green); font-weight: 600; box-shadow: inset 0 0 0 1.5px var(--green); }
-.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; }
-.cat {
-  display: grid; justify-items: center; gap: 4px; padding: 9px 3px 8px; border-radius: 14px;
-  background: var(--card); font-size: 12px; font-weight: 500; line-height: 1.3; text-align: center;
-}
-.cat span { font-size: 22px; line-height: 1; }
-.cat[aria-checked="true"] { background: color-mix(in srgb, var(--c) 16%, var(--card)); box-shadow: inset 0 0 0 1.5px var(--c); font-weight: 600; }
-#fNote {
-  width: 100%; padding: 12px 14px; resize: none; font: inherit; font-size: 16px; line-height: 1.5;
-  border: 1.5px solid transparent; border-radius: 14px; background: var(--card); color: var(--ink); outline: none;
-}
-#fNote:focus { border-color: var(--green); }
+.unit { flex: none; height: 32px; padding: 0 13px; border-radius: 99px; font-size: 14px; background: var(--fill); color: var(--label); transition: background .25s var(--spring), color .25s; }
+.unit[aria-checked="true"] { background: var(--tint); color: var(--tint-ink); font-weight: 600; }
+.cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 12px 6px; }
+.cat { display: grid; justify-items: center; gap: 6px; font-size: 11.5px; line-height: 14px; color: var(--label-2); text-align: center; }
+.cat span { width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; font-size: 22px; background: color-mix(in srgb, var(--c) 16%, var(--cell)); transition: transform .35s var(--pop), box-shadow .25s; }
+.cat[aria-checked="true"] { color: var(--label); font-weight: 600; }
+.cat[aria-checked="true"] span { box-shadow: 0 0 0 2.5px var(--cell), 0 0 0 4.5px var(--c); transform: scale(1.04); }
+#fNote { display: block; width: 100%; padding: 14px 16px; border: 0; outline: none; resize: none; background: none; font: inherit; font-size: 17px; line-height: 22px; color: var(--label); }
+.text-btn { display: flex; align-items: center; gap: 8px; margin: 22px 4px 0; height: 44px; font-size: 17px; color: var(--tint); }
+.text-btn ion-icon { font-size: 24px; }
+.danger-card { margin-top: 26px; }
+.danger-card button { width: 100%; height: 50px; font-size: 17px; color: var(--red); }
+.danger-card button:active { background: var(--fill); }
 
 /* Archive */
-.archive { padding-bottom: 30px; }
-.archive .group-title { margin-top: 22px; color: var(--muted); font-size: 13.5px; }
-.arch-emo { font-size: 22px; margin-inline-end: 4px; }
-.archive ion-item { --background: var(--card); }
+.archive { max-width: 680px; margin: 0 auto; padding-bottom: 40px; }
+.archive .group-title { font-size: 13px; font-weight: 400; color: var(--label-2); margin: 22px 0 -4px; }
+.archive ion-list { margin: 10px 16px 0 !important; border-radius: 12px; }
+.archive ion-item { --background: var(--cell); --inner-border-width: 0 0 .55px 0; --border-color: var(--sep); }
+.arch-emo { font-size: 22px; margin-inline-end: 12px; }
+.archive ion-label h3 { font-size: 17px; }
+.archive ion-label p { font-size: 13px; color: var(--label-2); }
 
 /* Toast */
-ion-toast.app-toast { --border-radius: 14px; --background: var(--ink); --color: var(--app-bg); --button-color: var(--saffron); font-family: var(--ion-font-family); }
+ion-toast.app-toast {
+  --background: var(--glass); --color: var(--label); --button-color: var(--tint);
+  --border-radius: 16px; --box-shadow: var(--shadow-float);
+  --max-width: 420px; --start: 16px; --end: 16px;
+  font-family: var(--font);
+}
+ion-toast.app-toast::part(container) { -webkit-backdrop-filter: blur(24px) saturate(190%); backdrop-filter: blur(24px) saturate(190%); }
+ion-toast.app-toast::part(message) { font-size: 15px; font-weight: 500; }
+ion-toast.app-toast::part(button) { font-weight: 600; }
 
+/* Larger screens */
+@media (min-width: 700px) {
+  .cards { gap: 14px; }
+  .card { padding: 14px 16px 12px; }
+}
+@media (max-width: 350px) {
+  .card-num { font-size: 24px; }
+  .card-label { font-size: 13px; }
+  .dock-mode span { display: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
@@ -403,45 +478,57 @@ ion-toast.app-toast { --border-radius: 14px; --background: var(--ink); --color: 
 <body>
 <ion-app>
 
-  <!-- شاشة التحميل -->
-  <div id="splash" class="splash" aria-live="polite">
-    <img src="data:image/png;base64,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" alt="" width="72" height="72">
+  <!-- شاشة البداية -->
+  <div id="splash" class="splash" aria-hidden="true">
+    <img src="data:image/png;base64,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" alt="" width="84" height="84">
   </div>
 
-  <!-- البوابة: ربط المفتاح أو اختيار الاسم -->
+  <!-- البوابة -->
   <div id="gate" class="gate" hidden>
-    <div class="gate-card">
-      <img class="gate-logo" src="data:image/png;base64,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" alt="" width="80" height="80">
-      <h1>مقاضي بيتنا</h1>
-      <p id="gateSub" class="gate-sub"></p>
+    <div class="gate-inner">
+      <div class="gate-hero">
+        <img class="app-icon" src="data:image/png;base64,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" alt="" width="96" height="96">
+        <h1 class="t-large">مقاضي بيتنا</h1>
+        <p class="t-sub muted" id="gateSub"></p>
+      </div>
 
-      <div id="gateWho" hidden>
-        <p class="gate-q">من أنت؟</p>
+      <div id="gateWho" class="gate-step" hidden>
+        <h2 class="t-title3">من يستخدم هذا الجوال؟</h2>
         <div id="whoUsers" class="who-users"></div>
       </div>
 
-      <div id="gateNew" hidden>
-        <label class="field">
-          <span>مفتاح GitHub</span>
+      <div id="gateNew" class="gate-step" hidden>
+        <ul class="features">
+          <li><span class="f-ico" style="--c:#34C759"><ion-icon name="sync-outline"></ion-icon></span>
+            <div><b>قائمة واحدة للبيت</b><p>أي غرض يُضاف يطلع عند الثاني خلال ثوانٍ.</p></div></li>
+          <li><span class="f-ico" style="--c:#FF9500"><ion-icon name="basket-outline"></ion-icon></span>
+            <div><b>مستودع جاهز</b><p>أكثر من ٢٥٠ غرض مرتبة، تختارها بلمسة.</p></div></li>
+          <li><span class="f-ico" style="--c:#007AFF"><ion-icon name="cart-outline"></ion-icon></span>
+            <div><b>وضع التسوق</b><p>مربعات كبيرة، والشاشة تبقى مضاءة في السوبرماركت.</p></div></li>
+        </ul>
+        <div class="field-card">
+          <label for="tokenInput" class="t-foot muted">مفتاح GitHub</label>
           <input id="tokenInput" type="password" dir="ltr" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="github_pat_…">
-        </label>
+        </div>
         <p id="tokenErr" class="gate-err" role="alert"></p>
-        <ion-button expand="block" size="large" data-action="connect">ربط القائمة</ion-button>
-        <p class="gate-note">تسوي هذي الخطوة مرة وحدة على جوالك، وبعدها شارك الرابط مع زوجتك من القائمة.</p>
+        <button class="btn-primary" data-action="connect" id="connectBtn">ربط القائمة</button>
+        <p class="t-foot muted center">خطوة تسويها مرة وحدة، وبعدها تشارك الرابط مع زوجتك.</p>
       </div>
     </div>
   </div>
 
   <!-- الصفحة الرئيسية -->
   <div class="ion-page" id="main" hidden>
-    <ion-header translucent="true">
+    <ion-header translucent="true" class="main-header">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <span id="sync" class="sync" data-state="ok"><i></i><span>متزامن</span></span>
+          <span id="sync" class="sync" data-state="ok" role="status" aria-live="polite">
+            <ion-icon name="cloud-done-outline"></ion-icon><span>متزامن</span>
+          </span>
         </ion-buttons>
         <ion-title>مقاضي بيتنا</ion-title>
         <ion-buttons slot="end">
-          <ion-button data-action="menu" aria-label="القائمة">
+          <ion-button data-action="menu" aria-label="الخيارات">
             <ion-icon slot="icon-only" name="ellipsis-horizontal-circle-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
@@ -458,28 +545,29 @@ ion-toast.app-toast { --border-radius: 14px; --background: var(--ink); --color: 
           <ion-title size="large">مقاضي بيتنا</ion-title>
         </ion-toolbar>
         <ion-toolbar class="search-toolbar">
-          <ion-searchbar id="searchInput" placeholder="ابحث في القائمة" cancel-button-text="إلغاء" debounce="0"></ion-searchbar>
+          <ion-searchbar id="searchInput" placeholder="بحث" cancel-button-text="إلغاء" show-cancel-button="focus" debounce="0"></ion-searchbar>
         </ion-toolbar>
       </ion-header>
 
       <div class="wrap">
-        <section class="board" aria-label="ملخص المقاضي">
-          <div class="board-main">
-            <p id="greet" class="board-greet"></p>
-            <p class="board-label" id="boardLabel">باقي</p>
-            <p class="board-num"><span id="stLeft">0</span><small id="stLeftWord">غرض</small></p>
-            <div class="basket" aria-hidden="true"><div class="basket-fill" id="basketFill"></div></div>
-          </div>
-          <dl class="board-stats">
-            <div><dt>المطلوب</dt><dd id="stTotal">0</dd></div>
-            <div><dt>تم شراؤه</dt><dd id="stDone">0</dd></div>
-          </dl>
-        </section>
+        <p id="greet" class="greet"></p>
 
-        <ion-segment id="modeSeg" value="list" class="mode-seg">
-          <ion-segment-button value="list"><ion-label>القائمة</ion-label></ion-segment-button>
-          <ion-segment-button value="shop"><ion-label>🛒 وضع التسوق</ion-label></ion-segment-button>
-        </ion-segment>
+        <!-- بطاقات الملخص (بأسلوب تطبيق التذكيرات) -->
+        <section class="cards" aria-label="ملخص">
+          <button class="card" data-action="jump-left" style="--c:var(--tint)">
+            <span class="card-top"><span class="card-ico"><ion-icon name="cart"></ion-icon></span><span class="card-num" id="stLeft">0</span></span>
+            <span class="card-label">المتبقي</span>
+          </button>
+          <button class="card" data-action="jump-bought" style="--c:#8E8E93">
+            <span class="card-top"><span class="card-ico"><ion-icon name="checkmark-done"></ion-icon></span><span class="card-num" id="stDone">0</span></span>
+            <span class="card-label">تم شراؤه</span>
+          </button>
+          <button class="card" data-action="jump-top" style="--c:#FF9500">
+            <span class="card-top"><span class="card-ico"><ion-icon name="list"></ion-icon></span><span class="card-num" id="stTotal">0</span></span>
+            <span class="card-label">المجموع</span>
+          </button>
+        </section>
+        <div class="progress" aria-hidden="true"><div class="progress-fill" id="progFill"></div></div>
 
         <nav id="chips" class="chips" aria-label="التصنيفات"></nav>
 
@@ -487,49 +575,51 @@ ion-toast.app-toast { --border-radius: 14px; --background: var(--ink); --color: 
         <div id="list" class="list"></div>
 
         <section id="boughtSec" class="bought" hidden>
-          <div class="bought-head">
-            <button class="bought-toggle" data-action="toggle-bought">
-              <span>تم شراؤه</span><b id="boughtCount">0</b>
+          <div class="sec-head">
+            <button class="sec-toggle" data-action="toggle-bought" aria-expanded="true">
+              <span class="sec-title">تم شراؤه</span><span class="sec-count" id="boughtCount">0</span>
               <ion-icon class="chev" name="chevron-down"></ion-icon>
             </button>
-            <div class="bought-actions">
-              <ion-button size="small" fill="clear" data-action="archive-bought">
-                <ion-icon slot="start" name="archive-outline"></ion-icon>أرشفة
-              </ion-button>
-              <ion-button size="small" fill="clear" color="danger" data-action="clear-bought">
-                <ion-icon slot="start" name="trash-outline"></ion-icon>مسح
-              </ion-button>
-            </div>
+            <ion-button fill="clear" size="small" data-action="bought-menu" class="sec-more" aria-label="خيارات المشتريات">
+              <ion-icon slot="icon-only" name="ellipsis-horizontal"></ion-icon>
+            </ion-button>
           </div>
           <ion-list inset="true" id="boughtList" class="glist"></ion-list>
         </section>
       </div>
 
-      <ion-fab slot="fixed" vertical="bottom" horizontal="center">
-        <button id="fab" class="fab" data-action="open-add" aria-label="إضافة غرض">
-          <ion-icon name="add"></ion-icon><span>أضف غرض</span>
+      <!-- الشريط العائم (Liquid Glass) -->
+      <div slot="fixed" class="dock" id="dock">
+        <button class="dock-mode" data-action="toggle-shop" aria-pressed="false" id="dockMode">
+          <ion-icon name="cart-outline"></ion-icon>
+          <span id="dockModeText">تسوق</span>
         </button>
-      </ion-fab>
+        <button class="dock-add" data-action="open-add" aria-label="غرض جديد">
+          <ion-icon name="add-circle"></ion-icon>
+          <span>غرض جديد</span>
+        </button>
+      </div>
     </ion-content>
   </div>
 
   <!-- نافذة الإضافة والتعديل -->
-  <ion-modal id="itemModal" keep-contents-mounted="true" can-dismiss="true">
+  <ion-modal id="itemModal" keep-contents-mounted="true">
     <ion-header>
       <ion-toolbar>
-        <ion-buttons slot="start"><ion-button data-action="close-item">إغلاق</ion-button></ion-buttons>
-        <ion-title id="sheetTitle">إضافة للقائمة</ion-title>
+        <ion-buttons slot="start"><ion-button data-action="close-item">إلغاء</ion-button></ion-buttons>
+        <ion-title id="sheetTitle">غرض جديد</ion-title>
+        <ion-buttons slot="end"><ion-button strong="true" id="btnPrimary" data-action="primary">إضافة</ion-button></ion-buttons>
       </ion-toolbar>
-      <ion-toolbar class="add-mode-bar">
+      <ion-toolbar class="slim add-mode-bar">
         <ion-segment id="addSeg" value="catalog">
-          <ion-segment-button value="catalog"><ion-label>🧺 المستودع</ion-label></ion-segment-button>
-          <ion-segment-button value="manual"><ion-label>✏️ غرض جديد</ion-label></ion-segment-button>
+          <ion-segment-button value="catalog"><ion-label>المستودع</ion-label></ion-segment-button>
+          <ion-segment-button value="manual"><ion-label>كتابة</ion-label></ion-segment-button>
         </ion-segment>
       </ion-toolbar>
-      <ion-toolbar class="cat-only">
+      <ion-toolbar class="slim cat-only">
         <ion-searchbar id="catSearch" placeholder="ابحث: لبن، خيار، فيري…" debounce="0" show-cancel-button="never"></ion-searchbar>
       </ion-toolbar>
-      <ion-toolbar class="cat-only tabs-toolbar">
+      <ion-toolbar class="slim cat-only tabs-toolbar">
         <nav id="catTabs" class="cat-tabs" aria-label="أقسام المستودع"></nav>
       </ion-toolbar>
     </ion-header>
@@ -538,52 +628,57 @@ ion-toast.app-toast { --border-radius: 14px; --background: var(--ink); --color: 
       <div id="catalogGrid" class="catalog cat-only"></div>
 
       <form id="itemForm" class="manual-only form" novalidate>
-        <input id="fName" class="name-input" type="text" placeholder="وش ناقص؟ مثلاً: حليب" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="80" enterkeyhint="go" aria-label="اسم الغرض">
+        <div class="group-card">
+          <input id="fName" class="name-input" type="text" placeholder="اسم الغرض" autocomplete="off" autocorrect="off" spellcheck="false" maxlength="80" enterkeyhint="go" aria-label="اسم الغرض">
+        </div>
         <div id="sugRow" class="sug-row"></div>
 
-        <p class="mini-label">الكمية</p>
-        <div class="qty-row">
-          <div class="stepper" aria-label="الكمية">
-            <button type="button" data-action="step" data-dir="1" aria-label="زيادة"><ion-icon name="add"></ion-icon></button>
-            <input id="fQty" type="text" inputmode="decimal" value="1" aria-label="الكمية">
-            <button type="button" data-action="step" data-dir="-1" aria-label="إنقاص"><ion-icon name="remove"></ion-icon></button>
+        <p class="group-label">الكمية</p>
+        <div class="group-card">
+          <div class="row-line">
+            <span>العدد</span>
+            <div class="stepper" aria-label="الكمية">
+              <button type="button" data-action="step" data-dir="-1" aria-label="إنقاص"><ion-icon name="remove"></ion-icon></button>
+              <input id="fQty" type="text" inputmode="decimal" value="1" aria-label="الكمية">
+              <button type="button" data-action="step" data-dir="1" aria-label="زيادة"><ion-icon name="add"></ion-icon></button>
+            </div>
           </div>
+          <div class="row-sep"></div>
           <div id="unitRow" class="unit-row" role="radiogroup" aria-label="الوحدة"></div>
         </div>
 
-        <p class="mini-label">التصنيف</p>
-        <div id="catGrid" class="cat-grid" role="radiogroup" aria-label="التصنيف"></div>
+        <p class="group-label">التصنيف</p>
+        <div class="group-card pad">
+          <div id="catGrid" class="cat-grid" role="radiogroup" aria-label="التصنيف"></div>
+        </div>
 
-        <p class="mini-label">ملاحظة</p>
-        <textarea id="fNote" rows="2" maxlength="200" placeholder="اختياري: نوع معيّن، حجم، ماركة…" aria-label="ملاحظة"></textarea>
+        <p class="group-label">ملاحظة</p>
+        <div class="group-card">
+          <textarea id="fNote" rows="3" maxlength="200" placeholder="اختياري: نوع معيّن، حجم، ماركة…" aria-label="ملاحظة"></textarea>
+        </div>
+
+        <button type="button" class="text-btn" id="btnMore" data-action="add-more">
+          <ion-icon name="add-circle"></ion-icon>إضافة ومتابعة بغرض آخر
+        </button>
+        <div class="group-card danger-card" id="btnDelete" hidden>
+          <button type="button" data-action="delete-item">حذف الغرض</button>
+        </div>
       </form>
     </ion-content>
 
-    <ion-footer class="cat-only pick-footer">
-      <ion-toolbar>
-        <div class="footer-btns">
-          <ion-button fill="clear" data-action="pick-clear" class="pick-clear">إلغاء</ion-button>
-          <ion-button id="pickAdd" expand="block" data-action="pick-add">اختر أغراض</ion-button>
-        </div>
-      </ion-toolbar>
-    </ion-footer>
-    <ion-footer class="manual-only">
-      <ion-toolbar>
-        <div class="footer-btns">
-          <ion-button id="btnDelete" fill="clear" color="danger" data-action="delete-item" hidden>حذف</ion-button>
-          <ion-button id="btnMore" fill="outline" data-action="add-more">أضف وتابع</ion-button>
-          <ion-button id="btnSave" expand="block" data-action="save-item">إضافة</ion-button>
-        </div>
-      </ion-toolbar>
-    </ion-footer>
+    <!-- كبسولة الإضافة العائمة للمستودع -->
+    <div class="pick-dock cat-only" id="pickDock">
+      <button class="pick-clear" data-action="pick-clear" aria-label="إلغاء التحديد"><ion-icon name="close-circle"></ion-icon></button>
+      <button class="pick-add" data-action="pick-add" id="pickAdd">إضافة</button>
+    </div>
   </ion-modal>
 
   <!-- نافذة الأرشيف -->
   <ion-modal id="archiveModal" keep-contents-mounted="true">
     <ion-header>
       <ion-toolbar>
-        <ion-buttons slot="start"><ion-button data-action="close-archive">تم</ion-button></ion-buttons>
         <ion-title>الأرشيف</ion-title>
+        <ion-buttons slot="end"><ion-button strong="true" data-action="close-archive">تم</ion-button></ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content><div id="archiveBody" class="archive"></div></ion-content>
@@ -967,6 +1062,7 @@ function readKey() {
 }
 const listLink = () => location.origin + location.pathname + '#t=' + S.key;
 
+
 // =========================================================
 //  الحركة الناعمة للقوائم (AutoAnimate) — تُحمّل إن توفرت
 // =========================================================
@@ -989,6 +1085,27 @@ const S = {
   seen: new Set(), firstPaint: true, lastActive: null,
 };
 const byId = (id) => S.items.find((i) => i.id === id);
+
+// لمسة اهتزاز خفيفة: Android عبر vibrate، وiPhone (iOS 18+) عبر مفتاح النظام المخفي
+const haptic = (() => {
+  let label = null;
+  return () => {
+    try {
+      if (navigator.vibrate) { navigator.vibrate(8); return; }
+      if (!label) {
+        label = document.createElement('label');
+        label.setAttribute('aria-hidden', 'true');
+        label.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;overflow:hidden;pointer-events:none;left:-10px;top:-10px';
+        const inp = document.createElement('input');
+        inp.type = 'checkbox'; inp.setAttribute('switch', ''); inp.tabIndex = -1;
+        label.appendChild(inp);
+        document.body.appendChild(label);
+      }
+      label.click();
+    } catch { /* غير مدعوم */ }
+  };
+})();
+const todayText = () => new Date().toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' });
 
 // =========================================================
 //  التشغيل
@@ -1039,7 +1156,9 @@ function enterApp(name) {
   S.user = { email: name, name };
   $('#gate').hidden = true;
   $('#main').hidden = false;
-  $('#greet').textContent = greeting() + '، ' + name;
+  $('#greet').textContent = `${greeting()}، ${name} · ${todayText()}`;
+  renderSkeleton();
+  hideSplash();
   applyMode(false);
   S.unsub.forEach((f) => { try { f(); } catch { /* */ } });
   S.unsub = [
@@ -1174,9 +1293,9 @@ function itemEntry(i) {
       el.dataset.id = i.id;
       delete el.dataset.busy;
       el.innerHTML = `
-        <ion-item lines="full" detail="false" data-action="edit" class="row-item">
+        <ion-item lines="full" detail="false" data-action="edit" class="row-item" button="false">
           <button class="check" slot="start" data-action="toggle" aria-label="${i.bought ? 'إلغاء تحديد' : 'تم شراء'} ${esc(i.name)}" aria-pressed="${i.bought}">
-            <span class="check-box">${ICON_CHECK}</span>
+            <span class="ring">${ICON_CHECK}</span>
           </button>
           <ion-label class="ion-text-wrap">
             <div class="item-top"><span class="item-name">${emo ? `<span class="i-emo">${emo}</span>` : ''}${esc(i.name)}</span>${qty ? `<span class="qty">${esc(qty)}</span>` : ''}</div>
@@ -1205,15 +1324,12 @@ function render() {
   const active = all.filter((i) => !i.bought);
   const bought = all.filter((i) => i.bought).sort((a, b) => (b.boughtAt || 0) - (a.boughtAt || 0));
 
-  // اللوحة
+  // البطاقات وشريط التقدم
   $('#stLeft').textContent = active.length;
-  $('#stLeftWord').textContent = countWord(active.length);
   $('#stTotal').textContent = all.length;
   $('#stDone').textContent = bought.length;
-  $('#basketFill').style.width = (all.length ? Math.round((bought.length / all.length) * 100) : 0) + '%';
-  const done = all.length > 0 && active.length === 0;
-  $('.board').classList.toggle('done', done);
-  $('#boardLabel').textContent = done ? 'خلصت المقاضي 🎉' : all.length ? 'باقي' : 'القائمة';
+  $('#progFill').style.width = (all.length ? Math.round((bought.length / all.length) * 100) : 0) + '%';
+  $('#dockModeText').textContent = S.shop && all.length ? `${bought.length} من ${all.length}` : 'تسوق';
 
   renderChips(active);
 
@@ -1245,7 +1361,7 @@ function render() {
       const c = CAT[g.cid];
       el.className = 'group';
       el.style.setProperty('--c', c.hue);
-      el.innerHTML = `<h3 class="group-title"><span class="g-ico">${c.icon}</span><span>${esc(c.name)}</span><span class="g-count"></span></h3><ion-list inset="true" class="glist"></ion-list>`;
+      el.innerHTML = `<h3 class="group-title"><span class="g-ico">${c.icon}</span><span>${esc(c.name)}</span><span class="g-count"></span></h3><ion-list inset="true" lines="none" class="glist"></ion-list>`;
       animate(el.querySelector('.glist'));
     },
     items: g.items,
@@ -1271,11 +1387,17 @@ function render() {
 }
 
 function emptyState(total, active, bought, filtered) {
-  if (filtered) return `<div class="empty"><div class="empty-ico">🔎</div><h3>ما فيه نتائج</h3><p>جرّب كلمة ثانية أو اختر «الكل».</p></div>`;
-  if (total > 0 && active === 0 && bought > 0) {
-    return `<div class="empty"><div class="empty-ico">🎉</div><h3>اشتريت كل المطلوب</h3><p>أرشف المشتريات تحت لتبدأ القائمة الجاية من جديد.</p></div>`;
-  }
-  return `<div class="empty"><div class="empty-ico">🧺</div><h3>القائمة فاضية</h3><p>أضف أول غرض ناقص، ويظهر للطرف الثاني مباشرة.</p></div>`;
+  const box = (icon, title, text) => `<div class="empty"><div class="empty-ico"><ion-icon name="${icon}"></ion-icon></div><h3>${title}</h3><p>${text}</p></div>`;
+  if (filtered) return box('search-outline', 'لا توجد نتائج', 'جرّب كلمة ثانية أو اختر «الكل».');
+  if (total > 0 && active === 0 && bought > 0) return box('checkmark-done', 'اكتملت المقاضي', 'كل المطلوب تم شراؤه. أرشف المشتريات لتبدأ قائمة جديدة.');
+  return box('basket-outline', 'القائمة فاضية', 'اضغط «غرض جديد» وأضف أول شيء ناقص، ويظهر للطرف الثاني مباشرة.');
+}
+
+function renderSkeleton() {
+  const rows = (n) => Array.from({ length: n }, (_, k) =>
+    `<div class="skel-row"><span class="skel-dot"></span><span class="skel-bar" style="width:${38 + ((k * 17) % 34)}%"></span></div>`).join('');
+  $('#emptyState').hidden = false;
+  $('#emptyState').innerHTML = `<div class="skel">${rows(3)}</div><div class="skel">${rows(2)}</div>`;
 }
 
 function renderChips(active) {
@@ -1292,10 +1414,12 @@ function renderChips(active) {
 
 function renderSync() {
   const el = $('#sync');
-  let st = 'ok', label = 'متزامن';
-  if (!navigator.onLine || S.offline) { st = 'off'; label = S.pending ? 'محفوظ بالجهاز' : 'بدون اتصال'; }
-  else if (S.pending) { st = 'busy'; label = 'يحفظ'; }
+  let st = 'ok', label = 'متزامن', icon = 'cloud-done-outline';
+  if (!navigator.onLine || S.offline) { st = 'off'; label = S.pending ? 'محفوظ بالجهاز' : 'غير متصل'; icon = 'cloud-offline-outline'; }
+  else if (S.pending) { st = 'busy'; label = 'جارٍ الحفظ'; icon = 'sync-outline'; }
+  if (el.dataset.state === st && el.querySelector('span').textContent === label) return;
   el.dataset.state = st;
+  el.querySelector('ion-icon').setAttribute('name', icon);
   el.querySelector('span').textContent = label;
 }
 
@@ -1321,10 +1445,12 @@ async function setWake(on) {
 }
 function applyMode(announce) {
   document.body.classList.toggle('shop', S.shop);
-  const seg = $('#modeSeg');
-  if (seg.value !== (S.shop ? 'shop' : 'list')) seg.value = S.shop ? 'shop' : 'list';
+  const b = $('#dockMode');
+  b.setAttribute('aria-pressed', String(S.shop));
+  b.querySelector('ion-icon').setAttribute('name', S.shop ? 'cart' : 'cart-outline');
+  if (S.ready) render();
   setWake(S.shop);
-  if (announce && S.shop) toast('وضع التسوق: اضغط على الغرض لتحديده، والشاشة تبقى مضاءة.');
+  if (announce) toast(S.shop ? 'وضع التسوق: المس أي غرض لتحديده، والشاشة تبقى مضاءة.' : 'رجعت لوضع القائمة.');
 }
 
 // =========================================================
@@ -1371,8 +1497,7 @@ async function openItemSheet(id = null) {
     catTouched: !!it || S.filter !== 'all',
     unit: it?.unit || 'حبة',
   };
-  $('#sheetTitle').textContent = it ? 'تعديل الغرض' : 'إضافة للقائمة';
-  $('#btnSave').textContent = it ? 'حفظ التعديل' : 'إضافة';
+  $('#sheetTitle').textContent = it ? 'تعديل الغرض' : 'غرض جديد';
   $('#btnMore').hidden = !!it;
   $('#btnDelete').hidden = !it;
   $('#fName').value = it?.name || '';
@@ -1402,8 +1527,19 @@ function setAddMode(mode, { focus = true } = {}) {
   m.classList.toggle('editing', !!S.editing);
   const seg = $('#addSeg');
   if (seg.value !== mode) seg.value = mode;
+  updatePrimary();
   if (mode === 'catalog') refreshCatalog();
   else if (focus) setTimeout(() => $('#fName').focus({ preventScroll: true }), 50);
+}
+
+function updatePrimary() {
+  const btn = $('#btnPrimary');
+  if (S.editing) { btn.textContent = 'تم'; btn.disabled = false; return; }
+  if (S.addMode === 'catalog') {
+    const n = S.pick.size;
+    btn.textContent = n ? `إضافة (${n})` : 'إضافة';
+    btn.disabled = n === 0;
+  } else { btn.textContent = 'إضافة'; btn.disabled = false; }
 }
 
 // ---------- المستودع ----------
@@ -1453,7 +1589,7 @@ function renderCatalog() {
     const hits = entries.filter((e) => e.key.includes(q) || (e.alias && e.alias.includes(q)))
       .sort((a, b) => (Number(b.key.startsWith(q)) - Number(a.key.startsWith(q))) || (a.name.length - b.name.length));
     html = hits.slice(0, 60).map((e) => tileHTML(e, inList.has(e.key))).join('');
-    if (!hits.some((e) => e.key === q) && !S.pick.has(q)) {
+    if (!hits.some((e) => e.key === q || (e.alias && e.alias.split(' ').includes(q))) && !S.pick.has(q)) {
       html += `<div class="tile new" role="button" tabindex="0" data-action="tile-new">
         <span class="t-emo">➕</span><span class="t-name">«${esc(S.catQuery.trim())}»</span><span class="t-tag">أضفه كغرض جديد</span></div>`;
     }
@@ -1475,12 +1611,13 @@ function renderCatalog() {
 function renderPickBar() {
   const n = S.pick.size;
   $('#itemModal').classList.toggle('has-pick', n > 0);
-  $('#pickAdd').textContent = n === 0 ? 'اختر أغراض' : n === 1 ? 'إضافة غرض واحد' : n === 2 ? 'إضافة غرضين' : `إضافة ${n} ${countWord(n)}`;
-  $('#pickAdd').disabled = n === 0;
+  $('#pickAdd').textContent = n === 1 ? 'إضافة غرض واحد' : n === 2 ? 'إضافة غرضين' : `إضافة ${n} ${countWord(n)}`;
+  updatePrimary();
 }
 function refreshCatalog() { renderCatTabs(); renderCatalog(); renderPickBar(); }
 
 function pickTile(key) {
+  haptic();
   if (S.pick.has(key)) { S.pick.delete(key); refreshCatalog(); return; }
   const e = allEntries().find((x) => x.key === key);
   if (!e) return;
@@ -1518,6 +1655,7 @@ function pickNew() {
 function addPicked() {
   const list = [...S.pick.values()];
   if (!list.length) return;
+  haptic();
   list.forEach((p) => addItem({ name: p.name, qty: p.qty, unit: p.unit, note: '', category: p.cat }));
   S.pick.clear();
   closeItemSheet();
@@ -1600,7 +1738,7 @@ async function openArchive() {
   list.sort((a, b) => (b.archivedAt || 0) - (a.archivedAt || 0));
   list = list.slice(0, 200);
   if (!list.length) {
-    body.innerHTML = '<div class="empty"><div class="empty-ico">🗂️</div><h3>الأرشيف فاضي</h3><p>بعد التسوق اضغط «أرشفة» في قسم المشتريات لحفظها هنا.</p></div>';
+    body.innerHTML = '<div class="empty"><div class="empty-ico"><ion-icon name="archive-outline"></ion-icon></div><h3>الأرشيف فاضي</h3><p>بعد التسوق اختر «أرشفة» من خيارات المشتريات لحفظها هنا.</p></div>';
     return;
   }
   const days = new Map();
@@ -1610,13 +1748,13 @@ async function openArchive() {
     days.get(day).push(i);
   }
   body.innerHTML = [...days].map(([day, items]) => `<h3 class="group-title">${esc(day)}</h3>
-    <ion-list inset="true">${items.map((i) => {
+    <ion-list inset="true" lines="none">${items.map((i) => {
       const qty = qtyText(i);
       return `<ion-item lines="full" data-id="${esc(i.id)}">
         <span slot="start" class="arch-emo">${emojiFor(i.name) || (CAT[i.category] || CAT.other).icon}</span>
         <ion-label><h3>${esc(i.name)}${qty ? ` <span class="qty">${esc(qty)}</span>` : ''}</h3>
           <p>${esc(i.boughtBy ? byLine(true, i.boughtBy, i.boughtByName) : byLine(false, i.addedBy, i.addedByName))}</p></ion-label>
-        <ion-button slot="end" fill="clear" size="small" data-action="restore"><ion-icon slot="start" name="arrow-undo-outline"></ion-icon>إعادة</ion-button>
+        <ion-button slot="end" fill="clear" size="small" data-action="restore">إعادة للقائمة</ion-button>
       </ion-item>`;
     }).join('')}</ion-list>`).join('');
 }
@@ -1634,7 +1772,7 @@ function restoreFromArchive(id, el) {
 // ---------- القائمة (Action Sheet) ----------
 async function openMenu() {
   const as = document.createElement('ion-action-sheet');
-  as.header = `${S.user.name} — هذا الجوال`;
+  as.header = `مسجّل باسم ${S.user.name}`;
   as.buttons = [
     { text: 'مشاركة رابط القائمة', handler: () => { shareLink(); } },
     { text: 'الأرشيف', handler: () => { openArchive(); } },
@@ -1669,11 +1807,6 @@ function bindEvents() {
     if (opt.dataset.action === 'delete') deleteItem(row.dataset.id);
   });
 
-  $('#modeSeg').addEventListener('ionChange', (e) => {
-    const shop = e.detail.value === 'shop';
-    if (shop === S.shop) return;
-    S.shop = shop; ls.set('mq.shop', shop); applyMode(true);
-  });
   $('#addSeg').addEventListener('ionChange', (e) => { if (e.detail.value && e.detail.value !== S.addMode) setAddMode(e.detail.value); });
 
   $('#searchInput').addEventListener('ionInput', (e) => { S.query = e.target.value || ''; render(); });
@@ -1722,7 +1855,7 @@ function bindEvents() {
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
       if (S.shop) setWake(true);
-      if (S.user) { $('#greet').textContent = greeting() + '، ' + S.user.name; render(); }
+      if (S.user) { $('#greet').textContent = `${greeting()}، ${S.user.name} · ${todayText()}`; render(); }
     }
   });
   setInterval(() => { if (S.ready && !isItemOpen()) render(); }, 60000);
@@ -1741,7 +1874,7 @@ function onClick(e) {
       if (a.tagName === 'ION-ITEM-OPTION') { row?.close(); }
       return tapToggle(row, id);
     }
-    case 'delete': a.closest('ion-item-sliding')?.close(); return deleteItem(id);
+    case 'delete': haptic(); a.closest('ion-item-sliding')?.close(); return deleteItem(id);
     case 'edit': {
       const row = a.closest('ion-item-sliding');
       if (S.shop) return tapToggle(row, id);
@@ -1752,6 +1885,16 @@ function onClick(e) {
     case 'close-archive': return $('#archiveModal').dismiss();
     case 'add-more': return submitItem({ more: true });
     case 'save-item': return submitItem();
+    case 'primary': return S.addMode === 'catalog' && !S.editing ? addPicked() : submitItem();
+    case 'toggle-shop': haptic(); S.shop = !S.shop; ls.set('mq.shop', S.shop); applyMode(true); return;
+    case 'jump-top': case 'jump-left': $('#content').scrollToPoint?.(0, $('#chips').offsetTop - 10, 450); return;
+    case 'jump-bought': {
+      const sec = $('#boughtSec');
+      if (sec.hidden) { toast('ما فيه مشتريات للحين'); return; }
+      if (!S.boughtOpen) { S.boughtOpen = true; ls.set('mq.boughtOpen', true); render(); }
+      $('#content').scrollToPoint?.(0, sec.offsetTop - 10, 450); return;
+    }
+    case 'bought-menu': return openBoughtMenu();
     case 'delete-item': { const eid = S.editing; closeItemSheet(); if (eid) deleteItem(eid); return; }
     case 'step': return stepQty(Number(a.dataset.dir));
     case 'unit': S.form.unit = a.dataset.unit; renderUnits(); return;
@@ -1783,7 +1926,7 @@ function onClick(e) {
       const btn = a, input = $('#tokenInput'), err = $('#tokenErr');
       const token = input.value.trim();
       if (!KEY_RE.test(token)) { err.textContent = 'ألصق المفتاح كاملاً. يبدأ بـ github_pat_'; return; }
-      btn.disabled = true; btn.textContent = 'جارٍ التحقق…'; err.textContent = '';
+      btn.disabled = true; btn.textContent = 'جارٍ التحقق…'; err.textContent = ''; haptic();
       checkToken(token).then((r) => {
         if (!r.ok) { err.textContent = r.msg; return; }
         if (!r.isPrivate) alert(`تنبيه: المستودع ${DATA_REPO} عام، يعني أي أحد يقدر يقرأ المقاضي. خلّه Private من إعداداته.`);
@@ -1801,10 +1944,27 @@ function tapToggle(row, id) {
   if (!row || row.dataset.busy) return;
   const it = byId(id);
   if (!it) return;
+  haptic();
   row.dataset.busy = '1';
   row.classList.add(it.bought ? 'unpop' : 'pop');
-  setTimeout(() => toggleBought(id), 220);
+  setTimeout(() => toggleBought(id), it.bought ? 220 : 420);
 }
+
+async function openBoughtMenu() {
+  const n = boughtItems().length;
+  const as = document.createElement('ion-action-sheet');
+  as.header = `المشتريات (${n})`;
+  as.buttons = [
+    { text: 'أرشفة المشتريات', handler: () => { archiveBought(); } },
+    { text: S.boughtOpen ? 'إخفاء القسم' : 'إظهار القسم', handler: () => { S.boughtOpen = !S.boughtOpen; ls.set('mq.boughtOpen', S.boughtOpen); render(); } },
+    { text: 'مسح المشتريات', role: 'destructive', handler: () => { clearBought(); } },
+    { text: 'إلغاء', role: 'cancel' },
+  ];
+  as.addEventListener('didDismiss', () => as.remove());
+  document.body.appendChild(as);
+  await as.present();
+}
+
 
 </script>
 </body>
