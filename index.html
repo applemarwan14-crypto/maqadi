@@ -121,6 +121,7 @@ h1, h2, h3, p { margin: 0; }
 .t-foot   { font-size: 13px; line-height: 18px; }
 
 ion-content { --background: var(--bg); color: var(--label); }
+ion-header[collapse="condense"] ion-toolbar { --background: var(--bg); --border-width: 0; }
 ion-toolbar { --color: var(--label); }
 ion-modal ion-content { --background: var(--bg); }
 ion-modal ion-header ion-toolbar { --background: var(--bg); --border-width: 0; }
@@ -702,6 +703,7 @@ ion-toast.app-toast::part(button) { font-weight: 600; }
 const GITHUB_OWNER = "applemarwan14-crypto";   // اسم حسابك في GitHub
 const DATA_REPO = "maqadi-data";               // المستودع الخاص (Private) اللي تنحفظ فيه المقاضي
 const people = ["مروان", "منال"];              // أسماء أفراد البيت
+const BUILD = "20261106083156";             // رقم النسخة (يتغير تلقائياً)
 
 // =========================================================
 //  مقاضي بيتنا — منطق الصفحة
@@ -1127,6 +1129,7 @@ async function boot() {
   if (window.customElements) {
     await Promise.race([customElements.whenDefined('ion-app'), new Promise((r) => setTimeout(r, 4000))]);
   }
+  setTimeout(() => checkForUpdate(true), 2500);
   S.key = readKey();
   if (!S.key) { showNoKey(); return; }
   S.store = createGitHubStore(S.key);
@@ -1135,6 +1138,25 @@ async function boot() {
 }
 
 function hideSplash() { $('#splash').classList.add('gone'); }
+
+// ---------- تحديث تلقائي: ينبّه لما تنرفع نسخة جديدة من الصفحة ----------
+let lastUpdateCheck = 0;
+async function checkForUpdate(force = false) {
+  if (typeof BUILD === 'undefined') return;
+  if (!force && Date.now() - lastUpdateCheck < 3 * 60 * 1000) return;
+  lastUpdateCheck = Date.now();
+  try {
+    const res = await fetch(location.pathname + '?check=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) return;
+    const m = (await res.text()).match(/const BUILD = "([^"]+)"/);
+    if (m && m[1] !== BUILD) {
+      toast('فيه تحديث جديد للصفحة ✨', {
+        action: 'تحديث', ms: 8000,
+        onAction: () => location.replace(location.pathname + '?v=' + encodeURIComponent(m[1]) + location.hash),
+      });
+    }
+  } catch { /* بدون اتصال */ }
+}
 
 function showGate(sub) {
   $('#main').hidden = true;
@@ -1864,6 +1886,7 @@ function bindEvents() {
   window.addEventListener('offline', renderSync);
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') {
+      checkForUpdate();
       if (S.shop) setWake(true);
       if (S.user) { $('#greet').textContent = `${greeting()}، ${S.user.name} · ${todayText()}`; render(); }
     }
