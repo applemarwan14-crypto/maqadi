@@ -716,7 +716,7 @@ ion-toast.app-toast::part(button) { font-weight: 600; }
 const GITHUB_OWNER = "applemarwan14-crypto";   // اسم حسابك في GitHub
 const DATA_REPO = "maqadi-data";               // المستودع الخاص (Private) اللي تنحفظ فيه المقاضي
 const people = ["مروان", "منال"];              // أسماء أفراد البيت
-const BUILD = "20261107094457";             // رقم النسخة (يتغير تلقائياً)
+const BUILD = "20261107095102";             // رقم النسخة (يتغير تلقائياً)
 
 // =========================================================
 //  مقاضي بيتنا — منطق الصفحة
@@ -1313,8 +1313,20 @@ const STALE_BOUGHT_MS = 4 * 60 * 60 * 1000;
 let lastSweep = 0;
 function sweepStaleBought() {
   if (Date.now() - lastSweep < 30000) return;
+  const bought = boughtItems();
+  if (!bought.length) return;
+  // كل شي انشرى (حتى لو قبل التحديث) وآخر غرض انشرى من أكثر من دقيقة: المقاضي خلصت
+  const lastBuy = Math.max(...bought.map((i) => i.boughtAt || 0));
+  if (!S.items.some((i) => !i.bought) && Date.now() - lastBuy > 60000) {
+    lastSweep = Date.now();
+    const ids = bought.map((i) => i.id);
+    S.finishedAt = Date.now();
+    archiveIds(ids);
+    toast('خلصت المقاضي 🎉 انحفظت المشتريات في الأرشيف', { action: 'تراجع', ms: 5000, onAction: () => { S.finishedAt = 0; unarchiveIds(ids); } });
+    return;
+  }
   const cut = Date.now() - STALE_BOUGHT_MS;
-  const ids = S.items.filter((i) => i.bought && i.boughtAt && i.boughtAt < cut).map((i) => i.id);
+  const ids = bought.filter((i) => i.boughtAt && i.boughtAt < cut).map((i) => i.id);
   if (!ids.length) return;
   lastSweep = Date.now();
   archiveIds(ids);
