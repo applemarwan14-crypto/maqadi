@@ -55,6 +55,7 @@
   --orange: #FF9500;
   --gold: #F2B124;
   --glass: rgba(255, 255, 255, .72);
+  --bar: #FBFBFD;                      /* لون الشريط السفلي (مصمت) */
   --glass-edge: rgba(255, 255, 255, .6);
   --shadow-float: 0 10px 34px rgba(0, 0, 0, .14), 0 2px 8px rgba(0, 0, 0, .06);
 
@@ -92,6 +93,7 @@
     --orange: #FF9F0A;
     --gold: #FFC93C;
     --glass: rgba(44, 44, 46, .62);
+    --bar: #1C1C1E;
     --glass-edge: rgba(255, 255, 255, .12);
     --shadow-float: 0 10px 34px rgba(0, 0, 0, .5), 0 2px 8px rgba(0, 0, 0, .3);
 
@@ -107,6 +109,13 @@
 }
 
 [hidden] { display: none !important; }
+/* الصفحة تملأ الشاشة كاملة حتى منطقة خط الرجوع في الآيفون،
+   وأي جزء يطلع تحت الشريط السفلي ياخذ نفس لونه فما يبان فيه كسر أبيض */
+html, body { background: var(--bar); }
+@supports (height: 100dvh) {
+  html, body { height: 100dvh; max-height: none; }
+}
+ion-app { background: var(--bg); }
 * { -webkit-tap-highlight-color: transparent; }
 html { -webkit-font-smoothing: antialiased; }
 button { font: inherit; color: inherit; border: 0; background: none; padding: 0; margin: 0; cursor: pointer; touch-action: manipulation; }
@@ -224,6 +233,8 @@ ion-searchbar { --background: var(--fill); --placeholder-color: var(--label-2); 
 .group-title .g-ico { font-size: 18px; }
 .group-title .g-count { font-size: 15px; font-weight: 500; color: var(--label-2); margin-inline-start: auto; font-variant-numeric: tabular-nums; }
 ion-list.glist { margin: 10px 16px 0 !important; border-radius: 12px; }
+/* علاج خلل رسم Safari للقوائم ذات الزوايا الدائرية (كانت تظهر فاضية) */
+ion-list.glist, .archive ion-list { isolation: isolate; -webkit-mask-image: -webkit-radial-gradient(white, black); transform: translateZ(0); }
 
 ion-item.row-item {
   --background: var(--cell);
@@ -237,6 +248,8 @@ ion-item.row-item {
   cursor: pointer;
 }
 ion-item.row-item::part(native) { transition: background .2s; }
+ion-item.row-item { --border-width: 0 !important; --inner-border-width: 0 0 .55px 0 !important; }
+ion-item-sliding:last-child ion-item.row-item { --inner-border-width: 0 !important; }
 ion-item-option { font-size: 13px; font-weight: 500; --padding-start: 18px; --padding-end: 18px; }
 ion-item-option ion-icon { font-size: 22px; margin-bottom: 2px; }
 
@@ -301,7 +314,7 @@ ion-item.row-item ion-label { margin: 11px 0 !important; }
 
 /* ---------- Bottom bar (ثابت مثل تطبيقات iOS) ---------- */
 .app-footer {
-  background: var(--glass);
+  background: var(--bar);
   -webkit-backdrop-filter: blur(28px) saturate(190%);
   backdrop-filter: blur(28px) saturate(190%);
   box-shadow: 0 -.55px 0 var(--sep), 0 -10px 30px rgba(0, 0, 0, .07);
@@ -703,7 +716,7 @@ ion-toast.app-toast::part(button) { font-weight: 600; }
 const GITHUB_OWNER = "applemarwan14-crypto";   // اسم حسابك في GitHub
 const DATA_REPO = "maqadi-data";               // المستودع الخاص (Private) اللي تنحفظ فيه المقاضي
 const people = ["مروان", "منال"];              // أسماء أفراد البيت
-const BUILD = "20261106083156";             // رقم النسخة (يتغير تلقائياً)
+const BUILD = "20261107094457";             // رقم النسخة (يتغير تلقائياً)
 
 // =========================================================
 //  مقاضي بيتنا — منطق الصفحة
@@ -1094,7 +1107,7 @@ const S = {
   boughtOpen: ls.get('mq.boughtOpen', true),
   editing: null, form: { cat: 'other', catTouched: false, unit: 'حبة' },
   addMode: 'catalog', pick: new Map(), catTab: null, catQuery: '',
-  seen: new Set(), firstPaint: true, lastActive: null,
+  seen: new Set(), firstPaint: true, lastActive: null, finishedAt: 0,
 };
 const byId = (id) => S.items.find((i) => i.id === id);
 
@@ -1197,6 +1210,7 @@ function enterApp(name) {
     S.store.watchItems((items, meta = {}) => {
       S.items = items; S.pending = !!meta.pending; S.offline = !!meta.offline; S.ready = true;
       render(); hideSplash();
+      sweepStaleBought();
       if (S.store.authFail) {
         ls.set('mq.token', null);
         history.replaceState(null, '', location.pathname + location.search);
@@ -1245,6 +1259,7 @@ function toggleBought(id) {
   updateItem(id, it.bought
     ? { bought: false, boughtBy: null, boughtByName: null, boughtAt: null }
     : { bought: true, boughtBy: S.user.email, boughtByName: S.user.name, boughtAt: Date.now() });
+  if (!S.items.some((i) => !i.bought)) maybeFinishTrip();
 }
 
 function deleteItem(id) {
@@ -1259,17 +1274,50 @@ function deleteItem(id) {
 
 const boughtItems = () => S.items.filter((i) => i.bought);
 
+// نقل أغراض للأرشيف (تختفي من القائمة وتبقى محفوظة في «الأرشيف»)
+function archiveIds(ids) {
+  const now = Date.now(), set = new Set(ids);
+  S.items = S.items.filter((i) => !set.has(i.id));
+  render();
+  run(S.store.batch(ids.map((id) => ({ id, type: 'update', patch: { archived: true, archivedAt: now, updatedAt: now } }))));
+}
+function unarchiveIds(ids) {
+  run(S.store.batch(ids.map((id) => ({ id, type: 'update', patch: { archived: false, archivedAt: null } }))));
+}
+
 function archiveBought() {
   const list = boughtItems();
   if (!list.length) return;
-  const now = Date.now(), ids = list.map((i) => i.id);
-  S.items = S.items.filter((i) => !i.bought);
-  render();
-  run(S.store.batch(ids.map((id) => ({ id, type: 'update', patch: { archived: true, archivedAt: now, updatedAt: now } }))));
-  toast(`نُقل ${ids.length} ${countWord(ids.length)} إلى الأرشيف`, {
-    action: 'تراجع',
-    onAction: () => run(S.store.batch(ids.map((id) => ({ id, type: 'update', patch: { archived: false, archivedAt: null } })))),
-  });
+  const ids = list.map((i) => i.id);
+  archiveIds(ids);
+  toast(`نُقل ${ids.length} ${countWord(ids.length)} إلى الأرشيف`, { action: 'تراجع', onAction: () => unarchiveIds(ids) });
+}
+
+// لما ينشرى آخر غرض: المشتريات تروح للأرشيف تلقائياً والقائمة ترجع فاضية
+let finishTimer = null;
+function maybeFinishTrip() {
+  clearTimeout(finishTimer);
+  finishTimer = setTimeout(() => {
+    const done = boughtItems();
+    if (S.items.some((i) => !i.bought) || !done.length) return; // أحد رجّع غرض أو أضاف جديد
+    const ids = done.map((i) => i.id);
+    S.finishedAt = Date.now();
+    if (S.shop) { S.shop = false; ls.set('mq.shop', false); applyMode(false); }
+    archiveIds(ids);
+    toast('خلصت المقاضي 🎉 انحفظت المشتريات في الأرشيف', { action: 'تراجع', ms: 5000, onAction: () => { S.finishedAt = 0; unarchiveIds(ids); } });
+  }, 1800);
+}
+
+// أي غرض مشترى له أكثر من ٤ ساعات (تسوق ما اكتمل) ينتقل للأرشيف بهدوء
+const STALE_BOUGHT_MS = 4 * 60 * 60 * 1000;
+let lastSweep = 0;
+function sweepStaleBought() {
+  if (Date.now() - lastSweep < 30000) return;
+  const cut = Date.now() - STALE_BOUGHT_MS;
+  const ids = S.items.filter((i) => i.bought && i.boughtAt && i.boughtAt < cut).map((i) => i.id);
+  if (!ids.length) return;
+  lastSweep = Date.now();
+  archiveIds(ids);
 }
 
 async function clearBought() {
@@ -1421,7 +1469,8 @@ function render() {
 function emptyState(total, active, bought, filtered) {
   const box = (icon, title, text) => `<div class="empty"><div class="empty-ico"><ion-icon name="${icon}"></ion-icon></div><h3>${title}</h3><p>${text}</p></div>`;
   if (filtered) return box('search-outline', 'لا توجد نتائج', 'جرّب كلمة ثانية أو اختر «الكل».');
-  if (total > 0 && active === 0 && bought > 0) return box('checkmark-done', 'اكتملت المقاضي', 'كل المطلوب تم شراؤه. أرشف المشتريات لتبدأ قائمة جديدة.');
+  if (total > 0 && active === 0 && bought > 0) return box('checkmark-done', 'اكتملت المقاضي', 'كل المطلوب تم شراؤه، وبتنتقل للأرشيف تلقائياً.');
+  if (total === 0 && S.finishedAt && Date.now() - S.finishedAt < 6 * 60 * 60 * 1000) return box('checkmark-done', 'خلصت المقاضي 🎉', 'المشتريات محفوظة في «الأرشيف» من زر الخيارات فوق. أي غرض ينقص أضفه من «غرض جديد».');
   return box('basket-outline', 'القائمة فاضية', 'اضغط «غرض جديد» وأضف أول شيء ناقص، ويظهر للطرف الثاني مباشرة.');
 }
 
