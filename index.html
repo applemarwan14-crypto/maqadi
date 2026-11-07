@@ -467,6 +467,15 @@ body.shop .chips, body.shop .sec-more { display: none; }
 .arch-emo { font-size: 22px; margin-inline-end: 12px; }
 .archive ion-label h3 { font-size: 17px; }
 .archive ion-label p { font-size: 13px; color: var(--label-2); }
+.trip-ico { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-size: 20px; color: #fff; background: var(--tint); margin-inline-end: 12px; flex: none; }
+.trip-n { font-size: 15px; color: var(--label-2); font-variant-numeric: tabular-nums; }
+.trip-head { display: grid; justify-items: center; text-align: center; gap: 4px; padding: 22px 20px 4px; }
+.trip-head h2 { font-size: 24px; font-weight: 700; }
+.trip-head p { font-size: 15px; color: var(--label-2); }
+.trip-again { display: block; width: calc(100% - 32px); max-width: 420px; margin: 16px auto 0; height: 46px; border-radius: 12px; background: var(--tint); color: var(--tint-ink); font-size: 16px; font-weight: 600; }
+.trip-again:active { opacity: .85; }
+.hist-sum { font-size: 13px; color: var(--label-2); padding: 18px 20px 0; }
+.empty .open-hist { margin-top: 12px; height: 40px; padding: 0 18px; border-radius: 20px; background: var(--tint-soft); color: var(--tint); font-size: 15px; font-weight: 600; }
 
 /* Toast */
 ion-toast.app-toast {
@@ -701,7 +710,8 @@ ion-toast.app-toast::part(button) { font-weight: 600; }
   <ion-modal id="archiveModal" keep-contents-mounted="true">
     <ion-header>
       <ion-toolbar>
-        <ion-title>الأرشيف</ion-title>
+        <ion-buttons slot="start"><ion-button data-action="trip-back" id="tripBack" hidden><ion-icon slot="start" name="chevron-forward"></ion-icon>السجل</ion-button></ion-buttons>
+        <ion-title id="archTitle">سجل المقاضي</ion-title>
         <ion-buttons slot="end"><ion-button strong="true" data-action="close-archive">تم</ion-button></ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -716,7 +726,7 @@ ion-toast.app-toast::part(button) { font-weight: 600; }
 const GITHUB_OWNER = "applemarwan14-crypto";   // اسم حسابك في GitHub
 const DATA_REPO = "maqadi-data";               // المستودع الخاص (Private) اللي تنحفظ فيه المقاضي
 const people = ["مروان", "منال"];              // أسماء أفراد البيت
-const BUILD = "20261107095102";             // رقم النسخة (يتغير تلقائياً)
+const BUILD = "20261107095347";             // رقم النسخة (يتغير تلقائياً)
 
 // =========================================================
 //  مقاضي بيتنا — منطق الصفحة
@@ -908,9 +918,9 @@ function applyOp(d, op) {
 }
 
 function pruneDoc(d) {
-  // نحتفظ بآخر 300 غرض مؤرشف فقط حتى يبقى الملف خفيفاً
+  // نحتفظ بآخر 1500 غرض في السجل حتى يبقى الملف خفيفاً
   const arch = Object.entries(d.items).filter(([, v]) => v.archived).sort((a, b) => (b[1].archivedAt || 0) - (a[1].archivedAt || 0));
-  arch.slice(300).forEach(([id]) => delete d.items[id]);
+  arch.slice(1500).forEach(([id]) => delete d.items[id]);
   const sugs = Object.entries(d.sugs).sort((a, b) => (b[1].lastUsed || 0) - (a[1].lastUsed || 0));
   sugs.slice(400).forEach(([k]) => delete d.sugs[k]);
 }
@@ -1290,7 +1300,7 @@ function archiveBought() {
   if (!list.length) return;
   const ids = list.map((i) => i.id);
   archiveIds(ids);
-  toast(`نُقل ${ids.length} ${countWord(ids.length)} إلى الأرشيف`, { action: 'تراجع', onAction: () => unarchiveIds(ids) });
+  toast(`انحفظ ${ids.length} ${countWord(ids.length)} في سجل المقاضي`, { action: 'تراجع', onAction: () => unarchiveIds(ids) });
 }
 
 // لما ينشرى آخر غرض: المشتريات تروح للأرشيف تلقائياً والقائمة ترجع فاضية
@@ -1304,7 +1314,7 @@ function maybeFinishTrip() {
     S.finishedAt = Date.now();
     if (S.shop) { S.shop = false; ls.set('mq.shop', false); applyMode(false); }
     archiveIds(ids);
-    toast('خلصت المقاضي 🎉 انحفظت المشتريات في الأرشيف', { action: 'تراجع', ms: 5000, onAction: () => { S.finishedAt = 0; unarchiveIds(ids); } });
+    toast('خلصت المقاضي 🎉 انحفظت في سجل المقاضي', { action: 'تراجع', ms: 5000, onAction: () => { S.finishedAt = 0; unarchiveIds(ids); } });
   }, 1800);
 }
 
@@ -1322,7 +1332,7 @@ function sweepStaleBought() {
     const ids = bought.map((i) => i.id);
     S.finishedAt = Date.now();
     archiveIds(ids);
-    toast('خلصت المقاضي 🎉 انحفظت المشتريات في الأرشيف', { action: 'تراجع', ms: 5000, onAction: () => { S.finishedAt = 0; unarchiveIds(ids); } });
+    toast('خلصت المقاضي 🎉 انحفظت في سجل المقاضي', { action: 'تراجع', ms: 5000, onAction: () => { S.finishedAt = 0; unarchiveIds(ids); } });
     return;
   }
   const cut = Date.now() - STALE_BOUGHT_MS;
@@ -1479,10 +1489,10 @@ function render() {
 }
 
 function emptyState(total, active, bought, filtered) {
-  const box = (icon, title, text) => `<div class="empty"><div class="empty-ico"><ion-icon name="${icon}"></ion-icon></div><h3>${title}</h3><p>${text}</p></div>`;
+  const box = (icon, title, text, hist = false) => `<div class="empty"><div class="empty-ico"><ion-icon name="${icon}"></ion-icon></div><h3>${title}</h3><p>${text}</p>${hist ? '<button class="open-hist" data-action="open-history">افتح سجل المقاضي</button>' : ''}</div>`;
   if (filtered) return box('search-outline', 'لا توجد نتائج', 'جرّب كلمة ثانية أو اختر «الكل».');
-  if (total > 0 && active === 0 && bought > 0) return box('checkmark-done', 'اكتملت المقاضي', 'كل المطلوب تم شراؤه، وبتنتقل للأرشيف تلقائياً.');
-  if (total === 0 && S.finishedAt && Date.now() - S.finishedAt < 6 * 60 * 60 * 1000) return box('checkmark-done', 'خلصت المقاضي 🎉', 'المشتريات محفوظة في «الأرشيف» من زر الخيارات فوق. أي غرض ينقص أضفه من «غرض جديد».');
+  if (total > 0 && active === 0 && bought > 0) return box('checkmark-done', 'اكتملت المقاضي', 'كل المطلوب تم شراؤه، وبتنحفظ في سجل المقاضي تلقائياً.');
+  if (total === 0 && S.finishedAt && Date.now() - S.finishedAt < 6 * 60 * 60 * 1000) return box('checkmark-done', 'خلصت المقاضي 🎉', 'انحفظت في سجل المقاضي بتاريخ اليوم. أي غرض ينقص أضفه من «غرض جديد».', true);
   return box('basket-outline', 'القائمة فاضية', 'اضغط «غرض جديد» وأضف أول شيء ناقص، ويظهر للطرف الثاني مباشرة.');
 }
 
@@ -1819,47 +1829,114 @@ function resetAddForm() {
   $('#fName').focus({ preventScroll: true });
 }
 
-// ---------- الأرشيف ----------
+// ---------- سجل المقاضي ----------
+//  كل مرة تخلص فيها المقاضي تنحفظ كـ«مقاضي» بتاريخها، وتدخل عليها وتشوف اللي انشرى
+const TRIP_GAP_MS = 2 * 60 * 60 * 1000; // أغراض انأرشفت بفارق أقل من ساعتين = نفس المقاضي
+const fmtDay = (t) => new Date(t).toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long', year: new Date(t).getFullYear() === new Date().getFullYear() ? undefined : 'numeric' });
+const fmtTime = (t) => new Date(t).toLocaleTimeString(LOCALE, { hour: 'numeric', minute: '2-digit' });
+const whoBought = (items) => {
+  const names = [...new Set(items.map((i) => i.boughtByName || i.addedByName).filter(Boolean))];
+  return names.length ? 'اشتراها ' + names.join(' و') : '';
+};
+
+function buildTrips(list) {
+  list.sort((a, b) => (b.archivedAt || b.boughtAt || 0) - (a.archivedAt || a.boughtAt || 0));
+  const trips = [];
+  for (const i of list) {
+    const t = i.archivedAt || i.boughtAt || 0;
+    const last = trips[trips.length - 1];
+    if (last && last.end - t < TRIP_GAP_MS) { last.items.push(i); last.end = t; }
+    else trips.push({ at: t, end: t, items: [i] });
+  }
+  return trips;
+}
+
 async function openArchive() {
   const m = $('#archiveModal');
   m.presentingElement = $('#main');
   const body = $('#archiveBody');
   body.innerHTML = '<div class="empty"><ion-spinner></ion-spinner></div>';
+  showTripList(true);
   m.present();
   let list = [];
-  try { list = await S.store.loadArchive(); } catch { body.innerHTML = '<div class="empty"><p>تعذّر تحميل الأرشيف. تحقق من الاتصال.</p></div>'; return; }
-  list.sort((a, b) => (b.archivedAt || 0) - (a.archivedAt || 0));
-  list = list.slice(0, 200);
-  if (!list.length) {
-    body.innerHTML = '<div class="empty"><div class="empty-ico"><ion-icon name="archive-outline"></ion-icon></div><h3>الأرشيف فاضي</h3><p>بعد التسوق اختر «أرشفة» من خيارات المشتريات لحفظها هنا.</p></div>';
-    return;
-  }
-  const days = new Map();
-  for (const i of list) {
-    const day = new Date(i.archivedAt || i.boughtAt || Date.now()).toLocaleDateString(LOCALE, { weekday: 'long', day: 'numeric', month: 'long' });
-    if (!days.has(day)) days.set(day, []);
-    days.get(day).push(i);
-  }
-  body.innerHTML = [...days].map(([day, items]) => `<h3 class="group-title">${esc(day)}</h3>
-    <ion-list inset="true" lines="none">${items.map((i) => {
-      const qty = qtyText(i);
-      return `<ion-item lines="full" data-id="${esc(i.id)}">
-        <span slot="start" class="arch-emo">${emojiFor(i.name) || (CAT[i.category] || CAT.other).icon}</span>
-        <ion-label><h3>${esc(i.name)}${qty ? ` <span class="qty">${esc(qty)}</span>` : ''}</h3>
-          <p>${esc(i.boughtBy ? byLine(true, i.boughtBy, i.boughtByName) : byLine(false, i.addedBy, i.addedByName))}</p></ion-label>
-        <ion-button slot="end" fill="clear" size="small" data-action="restore">إعادة للقائمة</ion-button>
-      </ion-item>`;
-    }).join('')}</ion-list>`).join('');
+  try { list = await S.store.loadArchive(); } catch { body.innerHTML = '<div class="empty"><p>تعذّر تحميل السجل. تحقق من الاتصال.</p></div>'; return; }
+  S.trips = buildTrips(list);
+  showTripList();
 }
 
-function restoreFromArchive(id, el) {
-  const now = Date.now();
-  run(S.store.update(id, {
-    archived: false, archivedAt: null, bought: false, boughtBy: null, boughtByName: null, boughtAt: null,
-    addedBy: S.user.email, addedByName: S.user.name, createdAt: now, updatedAt: now,
-  }));
-  el?.remove();
-  toast('رجع للقائمة');
+function showTripList(loading = false) {
+  $('#tripBack').hidden = true;
+  $('#archTitle').textContent = 'سجل المقاضي';
+  if (loading) return;
+  const body = $('#archiveBody');
+  const trips = S.trips || [];
+  if (!trips.length) {
+    body.innerHTML = '<div class="empty"><div class="empty-ico"><ion-icon name="receipt-outline"></ion-icon></div><h3>السجل فاضي</h3><p>كل مرة تخلص فيها المقاضي تنحفظ هنا بتاريخها، وتقدر ترجع لها متى ما بغيت.</p></div>';
+    return;
+  }
+  // تقسيم حسب الشهر
+  const months = new Map();
+  trips.forEach((t, idx) => {
+    const k = new Date(t.at).toLocaleDateString(LOCALE, { month: 'long', year: 'numeric' });
+    if (!months.has(k)) months.set(k, []);
+    months.get(k).push([t, idx]);
+  });
+  body.innerHTML = `<p class="hist-sum">${trips.length === 1 ? 'مرة وحدة' : trips.length === 2 ? 'مرتين' : trips.length + ' مرات'} مقاضي محفوظة</p>` +
+    [...months].map(([month, rows]) => `<h3 class="group-title" style="padding:0 20px">${esc(month)}</h3>
+    <ion-list inset="true" lines="none">${rows.map(([t, idx]) => `
+      <ion-item button detail="true" lines="full" data-action="trip" data-trip="${idx}">
+        <span slot="start" class="trip-ico"><ion-icon name="cart"></ion-icon></span>
+        <ion-label><h3>${esc(fmtDay(t.at))}</h3><p>${esc(fmtTime(t.at))}${whoBought(t.items) ? ' · ' + esc(whoBought(t.items)) : ''}</p></ion-label>
+        <span slot="end" class="trip-n">${t.items.length} ${countWord(t.items.length)}</span>
+      </ion-item>`).join('')}</ion-list>`).join('');
+  $('#archiveModal ion-content').scrollToTop?.(0);
+}
+
+function showTrip(idx) {
+  const t = (S.trips || [])[idx];
+  if (!t) return;
+  S.tripIdx = idx;
+  $('#tripBack').hidden = false;
+  $('#archTitle').textContent = 'المقاضي';
+  const groups = new Map();
+  t.items.slice().sort((a, b) => ((CAT[a.category] || CAT.other).order - (CAT[b.category] || CAT.other).order))
+    .forEach((i) => { const c = CAT[i.category] ? i.category : 'other'; if (!groups.has(c)) groups.set(c, []); groups.get(c).push(i); });
+  $('#archiveBody').innerHTML = `
+    <div class="trip-head"><h2>${esc(fmtDay(t.at))}</h2><p>${esc(fmtTime(t.at))} · ${t.items.length} ${countWord(t.items.length)}${whoBought(t.items) ? ' · ' + esc(whoBought(t.items)) : ''}</p></div>
+    <button class="trip-again" data-action="trip-again">أضف نفس المقاضي للقائمة</button>
+    ${[...groups].map(([cid, items]) => `<h3 class="group-title" style="padding:0 20px">${CAT[cid].icon} ${esc(CAT[cid].name)}</h3>
+      <ion-list inset="true" lines="none">${items.map((i) => {
+        const qty = qtyText(i);
+        return `<ion-item lines="full" data-id="${esc(i.id)}">
+          <span slot="start" class="arch-emo">${emojiFor(i.name) || CAT[cid].icon}</span>
+          <ion-label><h3>${esc(i.name)}${qty ? ` <span class="qty">${esc(qty)}</span>` : ''}</h3>${i.note ? `<p>${esc(i.note)}</p>` : ''}</ion-label>
+          <ion-button slot="end" fill="clear" size="small" data-action="restore" aria-label="أضف ${esc(i.name)} للقائمة"><ion-icon slot="icon-only" name="add-circle-outline"></ion-icon></ion-button>
+        </ion-item>`;
+      }).join('')}</ion-list>`).join('')}`;
+  $('#archiveModal ion-content').scrollToTop?.(0);
+}
+
+// يضيف نسخة جديدة للقائمة، والسجل يبقى كما هو
+function addAgain(items) {
+  const active = new Set(S.items.filter((i) => !i.bought).map((i) => norm(i.name)));
+  const fresh = items.filter((i) => !active.has(norm(i.name)));
+  fresh.forEach((i) => addItem({ name: i.name, qty: Number(i.qty) || 1, unit: i.unit || 'حبة', note: i.note || '', category: CAT[i.category] ? i.category : 'other' }));
+  return fresh.length;
+}
+
+function restoreFromArchive(id) {
+  const it = (S.trips || []).flatMap((t) => t.items).find((i) => i.id === id);
+  if (!it) return;
+  haptic();
+  toast(addAgain([it]) ? `أُضيف «${it.name}» للقائمة` : `«${it.name}» موجود بالقائمة`);
+}
+
+function tripAgain() {
+  const t = (S.trips || [])[S.tripIdx];
+  if (!t) return;
+  haptic();
+  const n = addAgain(t.items);
+  toast(n ? `أُضيف ${n} ${countWord(n)} للقائمة` : 'كل الأغراض موجودة بالقائمة');
 }
 
 // ---------- القائمة (Action Sheet) ----------
@@ -1868,7 +1945,7 @@ async function openMenu() {
   as.header = `مسجّل باسم ${S.user.name}`;
   as.buttons = [
     { text: 'مشاركة رابط القائمة', handler: () => { shareLink(); } },
-    { text: 'الأرشيف', handler: () => { openArchive(); } },
+    { text: 'سجل المقاضي', handler: () => { openArchive(); } },
     { text: 'تغيير الاسم', handler: () => { setWake(false); showWho(); } },
     { text: 'إلغاء', role: 'cancel' },
   ];
@@ -2014,7 +2091,11 @@ function onClick(e) {
     case 'archive-bought': return archiveBought();
     case 'clear-bought': return clearBought();
     case 'menu': return openMenu();
-    case 'restore': return restoreFromArchive(id, host);
+    case 'restore': return restoreFromArchive(id);
+    case 'trip': return showTrip(Number(a.dataset.trip));
+    case 'trip-back': return showTripList();
+    case 'trip-again': return tripAgain();
+    case 'open-history': return openArchive();
     case 'pick-name': return enterApp(a.dataset.name);
     case 'connect': {
       const btn = a, input = $('#tokenInput'), err = $('#tokenErr');
@@ -2049,7 +2130,7 @@ async function openBoughtMenu() {
   const as = document.createElement('ion-action-sheet');
   as.header = `المشتريات (${n})`;
   as.buttons = [
-    { text: 'أرشفة المشتريات', handler: () => { archiveBought(); } },
+    { text: 'حفظ في السجل', handler: () => { archiveBought(); } },
     { text: S.boughtOpen ? 'إخفاء القسم' : 'إظهار القسم', handler: () => { S.boughtOpen = !S.boughtOpen; ls.set('mq.boughtOpen', S.boughtOpen); render(); } },
     { text: 'مسح المشتريات', role: 'destructive', handler: () => { clearBought(); } },
     { text: 'إلغاء', role: 'cancel' },
